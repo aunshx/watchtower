@@ -1,0 +1,28 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "9447a0a52799",
+  "strategy": "manual-commit",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "web/src/App.tsx",
+    "web/src/components/ArtifactTabs.tsx",
+    "web/src/components/Funnel.tsx",
+    "web/src/components/PainMomentCard.tsx"
+  ],
+  "sessions": [
+    {
+      "metadata": "/94/47a0a52799/0/metadata.json",
+      "transcript": "/94/47a0a52799/0/full.jsonl",
+      "content_hash": "/94/47a0a52799/0/content_hash.txt",
+      "prompt": "/94/47a0a52799/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 369,
+    "cache_creation_tokens": 257373,
+    "cache_read_tokens": 26469448,
+    "output_tokens": 75593,
+    "api_call_count": 170
+  }
+}

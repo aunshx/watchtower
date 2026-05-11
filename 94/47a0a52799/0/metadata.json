@@ -1,0 +1,70 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "9447a0a52799",
+  "session_id": "bcc98d22-df73-4393-be74-3f951c8a769e",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-11T23:33:46.576673Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "web/src/App.tsx",
+    "web/src/components/ArtifactTabs.tsx",
+    "web/src/components/Funnel.tsx",
+    "web/src/components/PainMomentCard.tsx"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "11151d235731",
+  "token_usage": {
+    "input_tokens": 369,
+    "cache_creation_tokens": 257373,
+    "cache_read_tokens": 26469448,
+    "output_tokens": 75593,
+    "api_call_count": 170
+  },
+  "session_metrics": {
+    "turn_count": 25
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-11T23:33:46.546768Z",
+    "agent_lines": 55,
+    "agent_removed": 58,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 55,
+    "total_lines_changed": 113,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 3719,
+      "user_lines_removed": 0,
+      "agent_lines_added": 16961,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 22,
+        "data/classified/20260511_143141/qualified.json": 1,
+        "data/classified/20260511_143141/scored.json": 1802,
+        "data/classified/20260511_143718/qualified.json": 92,
+        "data/classified/20260511_143718/scored.json": 1802
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 3719,
+      "user_lines_removed": 0,
+      "agent_lines_added": 17016,
+      "agent_lines_removed": 58,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 22,
+        "data/classified/20260511_143141/qualified.json": 1,
+        "data/classified/20260511_143141/scored.json": 1802,
+        "data/classified/20260511_143718/qualified.json": 92,
+        "data/classified/20260511_143718/scored.json": 1802
+      }
+    }
+  ]
+}
