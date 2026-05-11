@@ -127,3 +127,7 @@ WHEN DONE
 Run npm run dev. Tell me the URL. Don't commit yet — wait for my review.
 
 If you run out of time on any section, stop where you are. Do not try to "finish" by skimping. Better to fully complete 2 sections than half-complete 4.
+
+---
+
+commit and push
