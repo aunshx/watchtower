@@ -52,7 +52,7 @@ export default function App() {
         <Hero data={data} />
 
         {/* Section A: Top Pain Moments */}
-        <section className="mt-24 pb-16">
+        <section className="mt-18 pb-16">
           <h2 className="text-3xl font-bold text-stone-900 mb-2">Top Pain Moments</h2>
           <p className="text-base text-stone-600 mb-12">
             The 5 highest-scoring AI-coding pain moments surfaced by Checkpoint Scout this run.
@@ -72,7 +72,7 @@ export default function App() {
         <section className="pb-24">
           <h2 className="text-3xl font-bold text-stone-900 mb-2">All Classified Candidates</h2>
           <p className="text-base text-stone-600 mb-8">
-            The full classified set. Pagination shows 50 candidates per page.
+            The full classified set.
           </p>
           <CandidatesTable candidates={data.classified_candidates} />
         </section>

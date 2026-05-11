@@ -7,7 +7,7 @@ interface Props {
   candidates: ClassifiedCandidate[];
 }
 
-const PAGE_SIZE = 50;
+const PAGE_SIZE = 20;
 
 function scoreBadge(score: number) {
   if (score >= 8) return 'bg-blue-600 text-white';
