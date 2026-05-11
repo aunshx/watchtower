@@ -1,4 +1,4 @@
-import { Github } from 'lucide-react';
+import { GitFork } from 'lucide-react';
 
 export function Footer() {
   return (
@@ -13,7 +13,7 @@ export function Footer() {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 hover:text-[#0091FF] transition-colors"
         >
-          <Github size={13} />
+          <GitFork size={13} />
           aunshx/checkpoint-scout
         </a>
         <span>·</span>
