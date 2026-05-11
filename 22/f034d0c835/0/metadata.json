@@ -1,0 +1,75 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "22f034d0c835",
+  "session_id": "bcc98d22-df73-4393-be74-3f951c8a769e",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-11T21:49:02.955404Z",
+  "branch": "main",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "src/classify.py"
+  ],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "44f3d331147d",
+  "token_usage": {
+    "input_tokens": 242,
+    "cache_creation_tokens": 177998,
+    "cache_read_tokens": 6332891,
+    "output_tokens": 33872,
+    "api_call_count": 77
+  },
+  "session_metrics": {
+    "turn_count": 7
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-05-11T21:49:02.929522Z",
+    "agent_lines": 323,
+    "agent_removed": 0,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 323,
+    "total_lines_changed": 323,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 12,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 12
+      }
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 1817,
+      "user_lines_removed": 0,
+      "agent_lines_added": 267,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 14,
+        "data/classified/20260511_143141/qualified.json": 1,
+        "data/classified/20260511_143141/scored.json": 1802
+      }
+    },
+    {
+      "checkpoint_number": 3,
+      "user_lines_added": 3711,
+      "user_lines_removed": 0,
+      "agent_lines_added": 323,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 14,
+        "data/classified/20260511_143141/qualified.json": 1,
+        "data/classified/20260511_143141/scored.json": 1802,
+        "data/classified/20260511_143718/qualified.json": 92,
+        "data/classified/20260511_143718/scored.json": 1802
+      }
+    }
+  ]
+}
