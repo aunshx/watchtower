@@ -21,17 +21,17 @@ export function Funnel({ funnel, runTimestamp }: Props) {
 
   return (
     <div className="mt-10">
-      <div className="flex flex-wrap items-center justify-center gap-2">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         {stats.map((s, i) => (
-          <div key={s.key} className="flex items-center gap-2">
-            <div className="bg-white border border-stone-200 rounded-xl px-5 py-4 text-center min-w-[130px] shadow-sm">
+          <div key={s.key} className="flex items-center gap-3">
+            <div className="bg-white border border-stone-200 rounded-xl px-8 py-6 text-center min-w-[160px] shadow-sm">
               <div className="text-4xl font-bold text-blue-600">
                 {funnel[s.key].toLocaleString()}
               </div>
               <div className="text-sm text-stone-600 mt-2 leading-snug">{s.label}</div>
             </div>
             {i < stats.length - 1 && (
-              <ArrowRight className="text-stone-400 shrink-0" size={18} />
+              <ArrowRight className="text-stone-400 shrink-0" size={20} />
             )}
           </div>
         ))}

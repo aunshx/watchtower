@@ -16,22 +16,15 @@ const TABS: { key: Tab; label: string }[] = [
   { key: 'case_study', label: 'Case study' },
 ];
 
-function wordCount(text: string): number {
-  return text.trim().split(/\s+/).filter(Boolean).length;
-}
-
 export function ArtifactTabs({ moment }: Props) {
   const [active, setActive] = useState<Tab>('comment');
 
   return (
-    <div
-      className="mt-0"
-      onClick={(e) => e.stopPropagation()}
-    >
-      {/* Divider */}
+    <div onClick={(e) => e.stopPropagation()}>
+      {/* Row 4: divider */}
       <div className="border-t border-stone-200 my-6" />
 
-      {/* Source line */}
+      {/* Row 5: source line */}
       <div className="flex items-center gap-1.5 mb-5">
         <ExternalLink size={13} className="text-stone-400 shrink-0" />
         <span className="text-sm text-stone-500 shrink-0">Source:</span>
@@ -46,30 +39,28 @@ export function ArtifactTabs({ moment }: Props) {
         </a>
       </div>
 
-      {/* Tab bar */}
-      <div className="flex border-b border-stone-200">
+      {/* Row 6: tab bar */}
+      <div className="flex gap-8 border-b border-stone-200">
         {TABS.map((tab) => {
-          const words = wordCount(moment.artifacts[tab.key]);
           const isActive = active === tab.key;
           return (
             <button
               key={tab.key}
               onClick={() => setActive(tab.key)}
               className={[
-                'px-4 py-3 text-sm border-b-2 -mb-px transition-colors flex items-center gap-1.5',
+                'text-sm whitespace-nowrap pb-3 border-b-2 -mb-px transition-colors',
                 isActive
                   ? 'border-blue-600 text-blue-600 font-medium'
                   : 'border-transparent text-stone-600 hover:text-stone-900',
               ].join(' ')}
             >
               {tab.label}
-              <span className="text-xs text-stone-400 font-normal">{words}w</span>
             </button>
           );
         })}
       </div>
 
-      {/* Artifact content */}
+      {/* Row 7: artifact content */}
       <div className="bg-stone-50 rounded-lg p-6 mt-4 border border-stone-200">
         <div className="prose prose-stone max-w-none prose-sm
           prose-headings:text-stone-900 prose-headings:font-semibold
@@ -87,7 +78,7 @@ export function ArtifactTabs({ moment }: Props) {
         </div>
       </div>
 
-      {/* Footer note */}
+      {/* Row 8: footnote */}
       <p className="mt-4 text-sm text-stone-500 italic">
         Draft only — not posted to GitHub or sent.
       </p>
