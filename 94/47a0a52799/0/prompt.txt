@@ -202,3 +202,7 @@ CONSTRAINTS:
 - Don't try to "improve" anything not listed above
 
 When done, run npm run dev. Send me a screenshot of the page with one card expanded so I can verify the fixes.
+
+---
+
+commit and push this
