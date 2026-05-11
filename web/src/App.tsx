@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
-import type { DashboardData } from './types';
+import type { DashboardData, PainMoment } from './types';
 import { Hero } from './components/Hero';
 import { PainMomentCard } from './components/PainMomentCard';
+import { PainMomentModal } from './components/PainMomentModal';
+import { CandidatesTable } from './components/CandidatesTable';
 import { Footer } from './components/Footer';
 
 export default function App() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [selectedMoment, setSelectedMoment] = useState<PainMoment | null>(null);
 
   useEffect(() => {
     fetch('/checkpoint-scout/data.json')
@@ -47,19 +50,41 @@ export default function App() {
     <div className="min-h-screen bg-stone-50 text-stone-900 font-sans">
       <div className="max-w-7xl mx-auto px-6">
         <Hero data={data} />
-        <section className="pb-16">
-          <h2 className="text-3xl font-bold text-stone-900 mt-24 mb-2">Pain Moments</h2>
+
+        {/* Section A: Top Pain Moments */}
+        <section className="mt-24 pb-16">
+          <h2 className="text-3xl font-bold text-stone-900 mb-2">Top Pain Moments</h2>
           <p className="text-base text-stone-600 mb-12">
-            Ranked by pain score — click any card to view generated artifacts.
+            The 5 highest-scoring AI-coding pain moments surfaced by Checkpoint Scout this run.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {data.pain_moments.map((m) => (
-              <PainMomentCard key={m.id} moment={m} />
+              <PainMomentCard
+                key={m.id}
+                moment={m}
+                onOpen={() => setSelectedMoment(m)}
+              />
             ))}
           </div>
         </section>
+
+        {/* Section B: All Classified Candidates */}
+        <section className="pb-24">
+          <h2 className="text-3xl font-bold text-stone-900 mb-2">All Classified Candidates</h2>
+          <p className="text-base text-stone-600 mb-8">
+            The full classified set. Pagination shows 50 candidates per page.
+          </p>
+          <CandidatesTable candidates={data.classified_candidates} />
+        </section>
       </div>
+
       <Footer />
+
+      {/* Modal */}
+      <PainMomentModal
+        moment={selectedMoment}
+        onClose={() => setSelectedMoment(null)}
+      />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { ExternalLink } from 'lucide-react';
+import { Copy, Check } from 'lucide-react';
 import type { PainMoment } from '../types';
 
 interface Props {
@@ -18,50 +18,57 @@ const TABS: { key: Tab; label: string }[] = [
 
 export function ArtifactTabs({ moment }: Props) {
   const [active, setActive] = useState<Tab>('comment');
+  const [copied, setCopied] = useState(false);
+
+  function handleCopy() {
+    navigator.clipboard.writeText(moment.artifacts.outreach).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  }
 
   return (
-    <div onClick={(e) => e.stopPropagation()}>
-      {/* Row 4: divider */}
-      <div className="border-t border-stone-200 my-6" />
-
-      {/* Row 5: source line */}
-      <div className="flex items-center gap-1.5 mb-5">
-        <ExternalLink size={13} className="text-stone-400 shrink-0" />
-        <span className="text-sm text-stone-500 shrink-0">Source:</span>
-        <a
-          href={moment.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-blue-600 hover:text-blue-700 transition-colors truncate"
-          title={moment.url}
-        >
-          {moment.url}
-        </a>
-      </div>
-
-      {/* Row 6: tab bar */}
+    <div>
+      {/* Tab bar */}
       <div className="flex gap-8 border-b border-stone-200">
-        {TABS.map((tab) => {
-          const isActive = active === tab.key;
-          return (
-            <button
-              key={tab.key}
-              onClick={() => setActive(tab.key)}
-              className={[
-                'text-sm whitespace-nowrap pb-3 border-b-2 -mb-px transition-colors',
-                isActive
-                  ? 'border-blue-600 text-blue-600 font-medium'
-                  : 'border-transparent text-stone-600 hover:text-stone-900',
-              ].join(' ')}
-            >
-              {tab.label}
-            </button>
-          );
-        })}
+        {TABS.map((tab) => (
+          <button
+            key={tab.key}
+            onClick={() => setActive(tab.key)}
+            className={[
+              'text-sm whitespace-nowrap pb-3 border-b-2 -mb-px transition-colors',
+              active === tab.key
+                ? 'border-blue-600 text-blue-600 font-medium'
+                : 'border-transparent text-stone-600 hover:text-stone-900',
+            ].join(' ')}
+          >
+            {tab.label}
+          </button>
+        ))}
       </div>
 
-      {/* Row 7: artifact content */}
-      <div className="bg-stone-50 rounded-lg p-6 mt-4 border border-stone-200">
+      {/* Artifact content panel */}
+      <div className="bg-stone-50 rounded-lg p-6 mt-4 border border-stone-200 relative">
+        {/* Copy button — outreach tab only */}
+        {active === 'outreach' && (
+          <button
+            onClick={handleCopy}
+            className="absolute top-4 right-4 inline-flex items-center gap-1.5 text-xs text-stone-500 hover:text-stone-900 bg-white border border-stone-200 rounded-md px-2.5 py-1.5 transition-colors shadow-sm"
+          >
+            {copied ? (
+              <>
+                <Check size={12} className="text-green-600" />
+                <span className="text-green-600">Copied!</span>
+              </>
+            ) : (
+              <>
+                <Copy size={12} />
+                Copy
+              </>
+            )}
+          </button>
+        )}
+
         <div className="prose prose-stone max-w-none prose-sm
           prose-headings:text-stone-900 prose-headings:font-semibold
           prose-p:text-stone-700 prose-p:leading-relaxed
@@ -78,7 +85,7 @@ export function ArtifactTabs({ moment }: Props) {
         </div>
       </div>
 
-      {/* Row 8: footnote */}
+      {/* Footnote */}
       <p className="mt-4 text-sm text-stone-500 italic">
         Draft only — not posted to GitHub or sent.
       </p>

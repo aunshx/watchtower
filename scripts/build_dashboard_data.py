@@ -54,15 +54,18 @@ def main() -> None:
     # Latest classified run
     classified_run = find_latest(DATA_DIR, "classified")
     qualified_path = classified_run / "qualified.json"
+    scored_path = classified_run / "scored.json"
+
     qualified = json.loads(qualified_path.read_text())
-    print(f"Loaded {len(qualified)} qualified candidates from {qualified_path}")
+    scored = json.loads(scored_path.read_text())
+    print(f"Loaded {len(qualified)} qualified + {len(scored)} scored candidates")
 
     # Latest output run
     output_run = find_latest(OUTPUTS_DIR, "runs")
     print(f"Loading artifacts from {output_run}")
 
-    # Parse run timestamp from directory name
-    ts_str = output_run.name  # e.g. 20260511_145017
+    # Parse run timestamp
+    ts_str = output_run.name
     try:
         dt = datetime.strptime(ts_str, "%Y%m%d_%H%M%S").replace(tzinfo=timezone.utc)
         run_timestamp = dt.isoformat().replace("+00:00", "Z")
@@ -77,9 +80,9 @@ def main() -> None:
         try:
             raw_count = len(json.loads(raw_path.read_text()))
         except Exception:
-            raw_count = 2774  # fallback to known value
+            raw_count = 2774
 
-    # Build pain moments
+    # Build pain moments (qualified only, with full artifacts)
     pain_moments = []
     for rank, c in enumerate(qualified, 1):
         mid = c["id"]
@@ -116,6 +119,21 @@ def main() -> None:
         for v in m["artifacts"].values() if v
     )
 
+    # Build classified candidates (all 100, sorted by score desc)
+    scored_sorted = sorted(scored, key=lambda x: x.get("pain_score", 0), reverse=True)
+    classified_candidates = [
+        {
+            "id": c.get("id", ""),
+            "repo": c.get("repo", ""),
+            "pain_score": c.get("pain_score", 0),
+            "pain_type": c.get("pain_type", ""),
+            "pain_rationale": c.get("rationale", ""),
+            "url": c.get("url", ""),
+            "author": c.get("author", ""),
+        }
+        for c in scored_sorted
+    ]
+
     output = {
         "run_timestamp": run_timestamp,
         "funnel": {
@@ -125,6 +143,7 @@ def main() -> None:
             "artifacts_generated": artifacts_generated,
         },
         "pain_moments": pain_moments,
+        "classified_candidates": classified_candidates,
     }
 
     WEB_PUBLIC.mkdir(parents=True, exist_ok=True)
@@ -133,6 +152,7 @@ def main() -> None:
     print(f"Written: {out_path} ({out_path.stat().st_size:,} bytes)")
     print(f"  Funnel: {output['funnel']}")
     print(f"  Pain moments: {len(pain_moments)}")
+    print(f"  Classified candidates: {len(classified_candidates)}")
 
 
 if __name__ == "__main__":

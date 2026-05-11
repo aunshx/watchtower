@@ -97,5 +97,907 @@
         "entire_relevance": "Entire could automatically disclose AI assistance and provide commit-level attribution/context so PRs pass provenance checks without manual scrubbing."
       }
     }
+  ],
+  "classified_candidates": [
+    {
+      "id": "e43473edca79af21",
+      "repo": "huggingface/transformers",
+      "pain_score": 8,
+      "pain_type": "review_burden",
+      "pain_rationale": "The PR template itself contains an explicit policy stating the Transformers repo is 'being overwhelmed' by code agent PRs and they are 'bottlenecked' reviewing them, a clear structural pain signal from a major maintainer.",
+      "url": "https://github.com/huggingface/transformers/pull/45892",
+      "author": "ArthurZucker"
+    },
+    {
+      "id": "8cf3e16bb82dbc6a",
+      "repo": "anthropics/claude-code",
+      "pain_score": 7,
+      "pain_type": "intent_unclear",
+      "pain_rationale": "Genuine recent user frustration where Claude conflated scoping/planning intent with implementation intent, causing unwanted file changes and lost trust.",
+      "url": "https://github.com/anthropics/claude-code/issues/50352",
+      "author": "rmurdough"
+    },
+    {
+      "id": "39be3d997bc5b014",
+      "repo": "huggingface/transformers",
+      "pain_score": 7,
+      "pain_type": "review_burden",
+      "pain_rationale": "The PR template itself contains an explicit Code Agent Policy stating the repo is 'being overwhelmed by a large number of PRs and issue comments written by code agents' and that they're bottlenecked on review capacity.",
+      "url": "https://github.com/huggingface/transformers/pull/45634",
+      "author": "IlyasMoutawwakil"
+    },
+    {
+      "id": "5a9ca8c66053fb67",
+      "repo": "domattioli/DomI",
+      "pain_score": 7,
+      "pain_type": "other",
+      "pain_rationale": "Genuine maintainer frustration about Claude sessions repeatedly violating documented branch policy, causing branch sprawl and manual cleanup burden.",
+      "url": "https://github.com/domattioli/DomI/issues/13",
+      "author": "domattioli"
+    },
+    {
+      "id": "e0e46557eeeaddb7",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 6,
+      "pain_type": "ai_authorship_concern",
+      "pain_rationale": "An automated bot flagged a contributor's PR for being predominantly AI-generated content, reflecting the maintainers' real burden of policing AI provenance.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22944#issuecomment-4421064322",
+      "author": "ggml-gh-bot[bot]"
+    },
+    {
+      "id": "922ae859e5dba95c",
+      "repo": "diggerhq/digger",
+      "pain_score": 5,
+      "pain_type": "review_burden",
+      "pain_rationale": "A maintainer is proactively addressing AI-assisted contributions but the post is more of a policy discussion than an acute pain moment.",
+      "url": "https://github.com/diggerhq/digger/issues/2649",
+      "author": "s1ntaxe770r"
+    },
+    {
+      "id": "a691be873a306083",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 3,
+      "pain_type": "ai_authorship_concern",
+      "pain_rationale": "This is an automated bot comment flagging a PR as AI-generated, indicating maintainer policy concern about AI provenance, but it's not a maintainer expressing personal pain.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22711#issuecomment-4378765448",
+      "author": "ggml-gh-bot[bot]"
+    },
+    {
+      "id": "36cfcbe292e7693b",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 3,
+      "pain_type": "ai_authorship_concern",
+      "pain_rationale": "This is an automated bot comment flagging a potentially AI-generated PR, not a human maintainer expressing genuine pain \u2014 though it reflects the underlying policy-level frustration with AI contributions.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22954#issuecomment-4424673098",
+      "author": "ggml-gh-bot[bot]"
+    },
+    {
+      "id": "06cdbead23fb6ad0",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 3,
+      "pain_type": "ai_authorship_concern",
+      "pain_rationale": "This is an automated bot comment flagging a contributor for suspected AI-generated PR content, not a human maintainer expressing real-time frustration, though it reflects a structural pain the repo is managing.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22836#issuecomment-4405955417",
+      "author": "ggml-gh-bot[bot]"
+    },
+    {
+      "id": "9c4a75622e895e0c",
+      "repo": "huggingface/transformers",
+      "pain_score": 3,
+      "pain_type": "review_burden",
+      "pain_rationale": "The PR itself isn't a pain moment, but it surfaces the maintainers' explicit policy statement about being overwhelmed by code-agent PRs and issues, which is meta-evidence of review burden rather than an in-the-moment complaint.",
+      "url": "https://github.com/huggingface/transformers/pull/45751",
+      "author": "jonghwanhyeon"
+    },
+    {
+      "id": "c6e5bb20e3b64e74",
+      "repo": "laofahai/linchkit",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a detailed technical CI infrastructure issue about GitHub Actions check-runs API restrictions, written by the maintainer themselves; it's not about AI-generated code being a burden even though it's authored via Claude Code.",
+      "url": "https://github.com/laofahai/linchkit/issues/296",
+      "author": "laofahai"
+    },
+    {
+      "id": "ed6bc2038e1d7ce8",
+      "repo": "zynax-io/zynax",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a proactive documentation/process issue creating a review checklist, not a real-time frustration moment with AI-generated code.",
+      "url": "https://github.com/zynax-io/zynax/issues/248",
+      "author": "ogomezm"
+    },
+    {
+      "id": "2b7a5a07563c5afd",
+      "repo": "denoland/deno",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR submission with a massive 15k-line diff and minimal description, likely AI-generated slop, but the author is not expressing pain \u2014 they're causing it; no maintainer comment is present to confirm frustration.",
+      "url": "https://github.com/denoland/deno/pull/33969",
+      "author": "nathanwhitbot"
+    },
+    {
+      "id": "b6ac5f5542bb98e7",
+      "repo": "huggingface/transformers",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a feature PR adding cache snapshot/restore functionality for speculative decoding; the repo's code agent policy is mentioned in template boilerplate but the PR itself isn't expressing AI-coding pain.",
+      "url": "https://github.com/huggingface/transformers/pull/45846",
+      "author": "kashif"
+    },
+    {
+      "id": "bb7f6ac769b4919e",
+      "repo": "huggingface/transformers",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a normal small PR removing a temp fix; the AI-related content is just the repo's boilerplate code agent policy, not author pain.",
+      "url": "https://github.com/huggingface/transformers/pull/45777",
+      "author": "khushali9"
+    },
+    {
+      "id": "2db5ac17c63abe1f",
+      "repo": "huggingface/transformers",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a legitimate bugfix PR; the only AI-related element is the repo's policy notice about agent-written PRs, but the author is not expressing pain themselves.",
+      "url": "https://github.com/huggingface/transformers/pull/45840",
+      "author": "rigen1048"
+    },
+    {
+      "id": "4e9f2f58b466d5da",
+      "repo": "facebook/react",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-assisted PR submission to React, not a maintainer expressing pain; the author is proudly showcasing Claude Code output rather than struggling with it.",
+      "url": "https://github.com/facebook/react/pull/36295",
+      "author": "ousamabenyounes"
+    },
+    {
+      "id": "f5f7bf2f0780a10c",
+      "repo": "denoland/deno",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a Claude Code-generated PR submission, not a maintainer expressing pain \u2014 no frustration is articulated in the thread.",
+      "url": "https://github.com/denoland/deno/pull/33947",
+      "author": "lunadogbot"
+    },
+    {
+      "id": "b62b17f5c952850f",
+      "repo": "denoland/deno",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-generated PR from a likely bot account, not a maintainer expressing pain about AI code.",
+      "url": "https://github.com/denoland/deno/pull/33945",
+      "author": "lunadogbot"
+    },
+    {
+      "id": "c8081eba55e66cab",
+      "repo": "karl-terrance/trade-os",
+      "pain_score": 2,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a self-authored detailed bug report about test hygiene violating project conventions; while CLAUDE.md is referenced, the pain is about Playwright test flakiness, not about AI-generated code itself.",
+      "url": "https://github.com/karl-terrance/trade-os/issues/229",
+      "author": "karl-terrance"
+    },
+    {
+      "id": "212610e442a152af",
+      "repo": "laofahai/linchkit",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a self-authored maintainer task issue proposing a refactor \u2014 no frustration with AI code, just routine technical debt cleanup that happens to be Claude-generated.",
+      "url": "https://github.com/laofahai/linchkit/issues/223",
+      "author": "laofahai"
+    },
+    {
+      "id": "29f97bb9c2a35c66",
+      "repo": "openclaw/openclaw",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a speculative feature proposal about AI-coding workflows, not a real maintainer expressing current frustration, and the date is in the future suggesting a fabricated or templated submission.",
+      "url": "https://github.com/openclaw/openclaw/issues/72745",
+      "author": "nightmusic"
+    },
+    {
+      "id": "378e80ae36225d5b",
+      "repo": "openclaw/openclaw",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a detailed bug report about subagent lifecycle recovery in OpenClaw's runtime, not a complaint about AI-generated code quality or review burden.",
+      "url": "https://github.com/openclaw/openclaw/issues/74363",
+      "author": "nicolasdmolina"
+    },
+    {
+      "id": "abfd98a20a9e319d",
+      "repo": "pytorch/helion",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine bug-fix PR co-authored with Claude; the author shows no frustration or pain, just normal development work.",
+      "url": "https://github.com/pytorch/helion/pull/2213",
+      "author": "AmesingFlank"
+    },
+    {
+      "id": "f5ee307dbeb5e063",
+      "repo": "huggingface/transformers",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "The maintainer is sharing a successful AI-assisted PR with a working demo, not expressing frustration or pain about AI-generated code.",
+      "url": "https://github.com/huggingface/transformers/pull/45396",
+      "author": "IlyasMoutawwakil"
+    },
+    {
+      "id": "0263088f42058f66",
+      "repo": "microsoft/vscode",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a maintainer's own AI-assisted PR description (written by Copilot) describing a feature addition, not an expression of frustration about AI-generated code.",
+      "url": "https://github.com/microsoft/vscode/pull/315590",
+      "author": "roblourens"
+    },
+    {
+      "id": "63ede24456e7810b",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a maintainer's own PR adding diagnostic tooling, co-authored with Claude; no frustration about AI-generated code is expressed.",
+      "url": "https://github.com/pytorch/pytorch/pull/181000",
+      "author": "jeffdaily"
+    },
+    {
+      "id": "708d9b713bc6ed7a",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description by a PyTorch maintainer disclosing Claude authorship without expressing frustration; no pain signal present.",
+      "url": "https://github.com/pytorch/pytorch/pull/181574",
+      "author": "pearu"
+    },
+    {
+      "id": "a298d8779916319f",
+      "repo": "denoland/deno",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a maintainer's own bug fix PR generated with Claude Code; it's a successful AI-assisted contribution, not an expression of pain.",
+      "url": "https://github.com/denoland/deno/pull/33278",
+      "author": "bartlomieju"
+    },
+    {
+      "id": "198ad9cd38369bb4",
+      "repo": "microsoft/vscode",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a well-written bug fix PR by a maintainer; the only AI tie-in is a parenthetical note that Copilot generated the commit message, with no expressed frustration.",
+      "url": "https://github.com/microsoft/vscode/pull/315853",
+      "author": "connor4312"
+    },
+    {
+      "id": "9140854163fcb12c",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description for an AI-assisted contribution (co-authored by Claude), not an expression of frustration or pain about AI-generated code.",
+      "url": "https://github.com/pytorch/pytorch/pull/181117",
+      "author": "vishalgoyal316"
+    },
+    {
+      "id": "42f42c88c98eb155",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine PR authored with Claude by a maintainer; there is no expression of frustration or structural pain in the post.",
+      "url": "https://github.com/pytorch/pytorch/pull/182916",
+      "author": "rtimpe"
+    },
+    {
+      "id": "dd3827bbcdc943e5",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a benchmark test report on an MTP support PR; the only AI mention is a passing note that Claude summarized the results table, with no frustration expressed.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22673#issuecomment-4406797844",
+      "author": "shinishiho"
+    },
+    {
+      "id": "ff18c8f0a7b8c87c",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a bug report about a Vulkan crash during MTP inference, with no mention of AI-generated code or AI-coding workflow pain.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22673#issuecomment-4413640515",
+      "author": "erasmus74"
+    },
+    {
+      "id": "19bd5aec77645ba3",
+      "repo": "facebook/react",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-assisted PR submission with detailed context and tests, not a maintainer expressing frustration about AI code.",
+      "url": "https://github.com/facebook/react/pull/36293",
+      "author": "ousamabenyounes"
+    },
+    {
+      "id": "b33e5e4dc1d7c983",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description authored with Claude that fixes a bug; the author is not expressing frustration about AI-generated code.",
+      "url": "https://github.com/pytorch/pytorch/pull/183343",
+      "author": "tfogal"
+    },
+    {
+      "id": "12b2dbf003ac57d5",
+      "repo": "facebook/react",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-assisted PR submission itself, not a maintainer expressing pain \u2014 the author is cheerfully contributing vibe-coded work with no frustration expressed.",
+      "url": "https://github.com/facebook/react/pull/36301",
+      "author": "ousamabenyounes"
+    },
+    {
+      "id": "fda0c79b30591bcf",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description disclosing AI-assisted authorship, but the author is not expressing frustration or pain \u2014 it's a normal fix submission.",
+      "url": "https://github.com/pytorch/pytorch/pull/183334",
+      "author": "zou3519"
+    },
+    {
+      "id": "6f196230b03079de",
+      "repo": "facebook/react",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-assisted PR submission itself, not a maintainer expressing pain about AI-generated code; no frustration is voiced in the thread.",
+      "url": "https://github.com/facebook/react/pull/36299",
+      "author": "ousamabenyounes"
+    },
+    {
+      "id": "51b453d2e1438886",
+      "repo": "denoland/deno",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-generated PR submission itself, not a maintainer expressing pain about AI-generated code.",
+      "url": "https://github.com/denoland/deno/pull/33946",
+      "author": "lunadogbot"
+    },
+    {
+      "id": "43733637c63d1eed",
+      "repo": "facebook/react",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-assisted PR submission, not a maintainer expressing pain \u2014 no frustration is voiced.",
+      "url": "https://github.com/facebook/react/pull/36300",
+      "author": "ousamabenyounes"
+    },
+    {
+      "id": "62b5a6f67ed014c2",
+      "repo": "pytorch/pytorch",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description noting it was authored with Claude, but contains no frustration or pain signal \u2014 it's a normal contribution.",
+      "url": "https://github.com/pytorch/pytorch/pull/182898",
+      "author": "eellison"
+    },
+    {
+      "id": "62eca97369d63eca",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a user troubleshooting performance/VRAM issues with an MTP model implementation, not a complaint about AI-generated code.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22673#issuecomment-4413742661",
+      "author": "StarWingOwl"
+    },
+    {
+      "id": "3beeb5f3d2beadfb",
+      "repo": "DominicBurkart/nanna-coder",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a maintainer's own well-organized PR description for a docs/refactor change with no expressed frustration about AI-generated code.",
+      "url": "https://github.com/DominicBurkart/nanna-coder/pull/374",
+      "author": "DominicBurkart"
+    },
+    {
+      "id": "d692e8011f4b1f60",
+      "repo": "danielraffel/pulp",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a detailed technical umbrella issue documenting framework gaps and tooling methodology, not a complaint about AI-generated code or AI coding workflow friction.",
+      "url": "https://github.com/danielraffel/pulp/issues/924",
+      "author": "danielraffel"
+    },
+    {
+      "id": "cd6a7e0938eee094",
+      "repo": "aeriondyseti/ccloop",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a self-authored release PR describing new features and fixes; the author is shipping work, not expressing frustration with AI-generated code.",
+      "url": "https://github.com/aeriondyseti/ccloop/pull/1",
+      "author": "aeriondyseti"
+    },
+    {
+      "id": "765d184801a82881",
+      "repo": "Brianclark490/CPCRM",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a structured internal feature-spec issue authored by the maintainer planning AI-edit undo functionality, not an expression of frustration with AI-generated code.",
+      "url": "https://github.com/Brianclark490/CPCRM/issues/596",
+      "author": "Brianclark490"
+    },
+    {
+      "id": "ca490aade168a3d2",
+      "repo": "microsoft/vscode",
+      "pain_score": 1,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine bug report about a Copilot CLI feature (compaction) failing, not a maintainer pain moment about reviewing or managing AI-generated code.",
+      "url": "https://github.com/microsoft/vscode/issues/311422",
+      "author": "bamurtaugh"
+    },
+    {
+      "id": "aa4c43ab1168e1f6",
+      "repo": "Ahjan108/phoenix_omega_v4.8",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-generated PR description by Claude Code itself, documenting coverage analysis \u2014 no human is expressing frustration about AI code.",
+      "url": "https://github.com/Ahjan108/phoenix_omega_v4.8/pull/683",
+      "author": "Ahjan108"
+    },
+    {
+      "id": "e37008d27caf9c50",
+      "repo": "Brianclark490/CPCRM",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a planned feature spec/task list for building an AI-edit feature, not a complaint about AI-generated code causing pain.",
+      "url": "https://github.com/Brianclark490/CPCRM/issues/595",
+      "author": "Brianclark490"
+    },
+    {
+      "id": "0386fb3b36a5fe9a",
+      "repo": "marsiandeployer/human-in-the-loop-review",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a self-authored feature/marketing PR by the maintainer announcing SEO blog content, not an expression of frustration with AI-generated code.",
+      "url": "https://github.com/marsiandeployer/human-in-the-loop-review/issues/25",
+      "author": "marsiandeployer"
+    },
+    {
+      "id": "28a4c6e028230a15",
+      "repo": "palimkarakshay/lumivara-site",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a feature request issue for adding language support, not a complaint about AI-generated code or review burden.",
+      "url": "https://github.com/palimkarakshay/lumivara-site/issues/39",
+      "author": "palimkarakshay"
+    },
+    {
+      "id": "046d2c766923f0b1",
+      "repo": "zeroclaw-labs/zeroclaw",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR template/description from 2026 (future-dated), not a genuine expression of pain about AI-generated code.",
+      "url": "https://github.com/zeroclaw-labs/zeroclaw/pull/6005",
+      "author": "Kimjaechol"
+    },
+    {
+      "id": "6cad0aae311e29b6",
+      "repo": "zeroclaw-labs/zeroclaw",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR template/description, not an expression of pain about AI-generated code.",
+      "url": "https://github.com/zeroclaw-labs/zeroclaw/pull/6381",
+      "author": "Kimjaechol"
+    },
+    {
+      "id": "f112471db6fbb1d2",
+      "repo": "hesreallyhim/awesome-claude-code",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a submission to an awesome-list promoting the author's own tool, not a pain moment experienced by a maintainer.",
+      "url": "https://github.com/hesreallyhim/awesome-claude-code/issues/1706",
+      "author": "jstuart0"
+    },
+    {
+      "id": "edbc94aee66aa4f6",
+      "repo": "json-schema-org/JSON-Schema-Test-Suite",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a contributor submitting an expansive test suite PR with no expressed frustration about AI-generated code; the content suggests possible AI-assisted authorship but no pain moment is present.",
+      "url": "https://github.com/json-schema-org/JSON-Schema-Test-Suite/pull/895",
+      "author": "AcEKaycgR"
+    },
+    {
+      "id": "e4ca640cf9c9ca55",
+      "repo": "jj-vcs/jj",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine code refactor PR explicitly stated to be hand-written with no AI involvement.",
+      "url": "https://github.com/jj-vcs/jj/pull/9397",
+      "author": "kevincliao"
+    },
+    {
+      "id": "36a2223f5a6e1354",
+      "repo": "sonic-net/sonic-platform-daemons",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a technical PR about CMIS module state machine handling with no AI tie-in whatsoever.",
+      "url": "https://github.com/sonic-net/sonic-platform-daemons/pull/813",
+      "author": "arpit-nexthop"
+    },
+    {
+      "id": "1c85aaf89dfe5456",
+      "repo": "xmrig/xmrig",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a generic bug report about memory alignment with no mention of AI-generated code; the report itself reads as possibly AI-generated boilerplate but contains no maintainer pain signal.",
+      "url": "https://github.com/xmrig/xmrig/issues/3804",
+      "author": "MathysHerbomez"
+    },
+    {
+      "id": "8a3b172497759f47",
+      "repo": "opencompl/veir",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-generated PR description by the author themselves, not a maintainer expressing frustration with AI code.",
+      "url": "https://github.com/opencompl/veir/pull/531",
+      "author": "bollu"
+    },
+    {
+      "id": "799f1e5c6df95902",
+      "repo": "ava-agent/awesome-ai-ideas",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is itself an auto-generated AI PR with no human frustration expressed; it's spam-like content rather than a pain moment.",
+      "url": "https://github.com/ava-agent/awesome-ai-ideas/pull/1327",
+      "author": "wshten10"
+    },
+    {
+      "id": "232d791b82940b5f",
+      "repo": "microsoft/vscode",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a small, clean bug-fix PR by a maintainer that merely notes the commit message was Copilot-generated; there is no frustration or structural AI pain expressed.",
+      "url": "https://github.com/microsoft/vscode/pull/315802",
+      "author": "connor4312"
+    },
+    {
+      "id": "3017377acfa1f1f8",
+      "repo": "pytorch/pytorch",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine PR by a maintainer unskipping a test with AI assistance disclosed; no frustration or pain is expressed.",
+      "url": "https://github.com/pytorch/pytorch/pull/183350",
+      "author": "pragupta"
+    },
+    {
+      "id": "d6589b00f2b9bc3f",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a technical PR proposing a CUDA performance optimization with no AI-coding involvement or frustration expressed.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22522",
+      "author": "aendk"
+    },
+    {
+      "id": "b2b6623fdc873574",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a benchmark/testing report sharing results on an MTP feature PR, with no expressed frustration about AI-generated code.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22673#issuecomment-4406153798",
+      "author": "shinishiho"
+    },
+    {
+      "id": "e7503b9c7595f3c0",
+      "repo": "ggerganov/llama.cpp",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a bug report about a Vulkan crash during MTP inference on a feature PR, with no connection to AI-generated code.",
+      "url": "https://github.com/ggml-org/llama.cpp/pull/22673#issuecomment-4413587894",
+      "author": "StarWingOwl"
+    },
+    {
+      "id": "c5b1ebef7f4d572e",
+      "repo": "microsoft/vscode",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated cherry-pick PR by a bot describing a routine telemetry refactor, not a human expressing frustration with AI-generated code.",
+      "url": "https://github.com/microsoft/vscode/pull/315757",
+      "author": "vs-code-engineering[bot]"
+    },
+    {
+      "id": "ac2dd862caf67028",
+      "repo": "pytorch/pytorch",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine PR description authored with Claude assistance; the author shows no frustration or pain, just normal disclosure of AI involvement.",
+      "url": "https://github.com/pytorch/pytorch/pull/182895",
+      "author": "eellison"
+    },
+    {
+      "id": "363fc6b1b8132042",
+      "repo": "pytorch/pytorch",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine typo-fix PR authored with Claude; the author shows no frustration and no maintainer pain is expressed.",
+      "url": "https://github.com/pytorch/pytorch/pull/182761",
+      "author": "frgossen"
+    },
+    {
+      "id": "cedc33bb6deac793",
+      "repo": "Pimpmuckl/symphony-plus-plus",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a PR description by the maintainer themselves describing technical hardening work; no frustration about AI-generated code is expressed.",
+      "url": "https://github.com/Pimpmuckl/symphony-plus-plus/pull/52",
+      "author": "Pimpmuckl"
+    },
+    {
+      "id": "ceec8e11a972b9ea",
+      "repo": "neha-eglund/claude-github-demo",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated AI-generated nightly analysis report, not a human expressing frustration about AI-generated code.",
+      "url": "https://github.com/neha-eglund/claude-github-demo/issues/108",
+      "author": "neha-eglund"
+    },
+    {
+      "id": "c6f943813fcf0833",
+      "repo": "thkruz/keeptrack.space",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a WebGL runtime error bug report with no mention of AI-generated code or AI-coding workflow issues.",
+      "url": "https://github.com/thkruz/keeptrack.space/issues/1323",
+      "author": "thkruz"
+    },
+    {
+      "id": "ffd2186a1a218fd3",
+      "repo": "SolbiatiAlessandro/cogames",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an AI-generated research planning issue authored by an automated session, not a human expressing frustration about AI-generated code.",
+      "url": "https://github.com/SolbiatiAlessandro/cogames/issues/65",
+      "author": "SolbiatiAlessandro"
+    },
+    {
+      "id": "b1bbb33d9e9bae56",
+      "repo": "Brianclark490/CPCRM",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine engineering task issue describing implementation plans for an AI-edit endpoint, not a frustration about AI-generated code.",
+      "url": "https://github.com/Brianclark490/CPCRM/issues/594",
+      "author": "Brianclark490"
+    },
+    {
+      "id": "01e5b866f3a85b48",
+      "repo": "TimSimpsonJr/recap",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an internal architecture/feature proposal for an ADR pipeline, with no mention of AI-generated code or related frustration.",
+      "url": "https://github.com/TimSimpsonJr/recap/issues/89",
+      "author": "TimSimpsonJr"
+    },
+    {
+      "id": "9a0be07c206f99e3",
+      "repo": "eltonaguiar/findtorontoevents_antigravity.ca",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated/AI-generated trading strategy monitoring report, not a human expressing frustration about AI-generated code.",
+      "url": "https://github.com/eltonaguiar/findtorontoevents_antigravity.ca/issues/693",
+      "author": "eltonaguiar"
+    },
+    {
+      "id": "62450b87e9c3884e",
+      "repo": "MiaoDX/robowbc",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a standard infrastructure issue describing a Docker image deliverable with no AI-code-generation pain involved.",
+      "url": "https://github.com/MiaoDX/robowbc/issues/131",
+      "author": "MiaoDX"
+    },
+    {
+      "id": "c251044c7ae98849",
+      "repo": "MiaoDX/robowbc",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine CI feature request issue with no AI-coding frustration; also dated 2026 which is implausible/future.",
+      "url": "https://github.com/MiaoDX/robowbc/issues/129",
+      "author": "MiaoDX"
+    },
+    {
+      "id": "8aefcb534a093432",
+      "repo": "danielsperoniteam/fhir-place",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a well-structured bug report about FHIR binding-strength handling with no mention of AI-generated code or AI tooling.",
+      "url": "https://github.com/danielsperoniteam/fhir-place/issues/239",
+      "author": "samsuffolksperoni"
+    },
+    {
+      "id": "7f8cf1a04fa34351",
+      "repo": "Metakirin/Automation",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a standard bug report about a button styling mismatch with no mention of AI-generated code or AI tooling.",
+      "url": "https://github.com/Metakirin/Automation/issues/7",
+      "author": "Metakirin"
+    },
+    {
+      "id": "18b60c763261a338",
+      "repo": "TimSimpsonJr/recap",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an architecture proposal/issue about a profile-builder service design with no mention of AI-generated code or related pain.",
+      "url": "https://github.com/TimSimpsonJr/recap/issues/87",
+      "author": "TimSimpsonJr"
+    },
+    {
+      "id": "a49b359e98e24c59",
+      "repo": "artsy/metaphysics",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine infrastructure PR adding canary deployment workflow and docs, with no mention of AI-generated code or related frustration.",
+      "url": "https://github.com/artsy/metaphysics/pull/7641",
+      "author": "MounirDhahri"
+    },
+    {
+      "id": "3da1a5ad4ac049bb",
+      "repo": "TimSimpsonJr/recap",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a technical design issue about entity ID schemas with no mention of AI-generated code or related frustration.",
+      "url": "https://github.com/TimSimpsonJr/recap/issues/88",
+      "author": "TimSimpsonJr"
+    },
+    {
+      "id": "d12ba26b9895a25b",
+      "repo": "nmartinovic/mlb",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a pre-launch checklist tracking issue with no expression of frustration about AI-generated code.",
+      "url": "https://github.com/nmartinovic/mlb/issues/134",
+      "author": "nmartinovic"
+    },
+    {
+      "id": "ca70a824fb20f0b3",
+      "repo": "Azure/azure-rest-api-specs",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated meeting request for a REST API review, not a complaint or frustration about AI-generated code.",
+      "url": "https://github.com/Azure/azure-rest-api-specs/issues/42678",
+      "author": "azure-sdk"
+    },
+    {
+      "id": "4b715b31a4aecb3c",
+      "repo": "apple/foundationdb",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine bug fix PR with no mention of AI-generated code or related frustration.",
+      "url": "https://github.com/apple/foundationdb/pull/13196",
+      "author": "tclinkenbeard-oai"
+    },
+    {
+      "id": "1b6b5e92b1879bca",
+      "repo": "sednalabs/codex",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine upstream-sync PR description with no expressed frustration or AI-coding pain.",
+      "url": "https://github.com/sednalabs/codex/pull/253",
+      "author": "GraciousGazelles"
+    },
+    {
+      "id": "3fe5cb40e71bc9ff",
+      "repo": "aattaran/deepclaude",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a community voting thread about renaming a project to avoid trademark concerns, not a moment of pain about AI-generated code.",
+      "url": "https://github.com/aattaran/deepclaude/issues/10",
+      "author": "aattaran"
+    },
+    {
+      "id": "dcf4ed94e1eebd61",
+      "repo": "focus-lock/focus-lock",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine feature PR description with no mention of AI tooling or frustration.",
+      "url": "https://github.com/focus-lock/focus-lock/pull/29",
+      "author": "surajmodur10"
+    },
+    {
+      "id": "57e92f15ef3bc1ea",
+      "repo": "peter11244/dbx-azure-mlops",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a task/feature creation issue by a maintainer to scaffold a Databricks example; no AI-coding frustration is expressed.",
+      "url": "https://github.com/peter11244/dbx-azure-mlops/issues/21",
+      "author": "peter11244"
+    },
+    {
+      "id": "79917aae51b63157",
+      "repo": "Alive-Fish/microsoft-365-agents-toolkit",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an empty bug report template with placeholder text, no actual content or AI-related frustration.",
+      "url": "https://github.com/Alive-Fish/microsoft-365-agents-toolkit/issues/31",
+      "author": "Alive-Fish"
+    },
+    {
+      "id": "8378e91200630ccb",
+      "repo": "Alive-Fish/microsoft-365-agents-toolkit",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an empty test issue with only the default template, no actual content or AI-related frustration.",
+      "url": "https://github.com/Alive-Fish/microsoft-365-agents-toolkit/issues/30",
+      "author": "Alive-Fish"
+    },
+    {
+      "id": "d65b74310bec4236",
+      "repo": "Alive-Fish/microsoft-365-agents-toolkit",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a template/test issue with no actual content, likely a test of the issue template system.",
+      "url": "https://github.com/Alive-Fish/microsoft-365-agents-toolkit/issues/29",
+      "author": "Alive-Fish"
+    },
+    {
+      "id": "9c12e6bdd9857a9f",
+      "repo": "WolfSoko/wol-sok-mono",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine maintenance task issue about updating Node.js versions with no AI-related frustration or pain expressed.",
+      "url": "https://github.com/WolfSoko/wol-sok-mono/issues/2127",
+      "author": "WolfSoko"
+    },
+    {
+      "id": "f796f73f2a6687b2",
+      "repo": "CodeEagle/lzcat-apps",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an auto-generated migration tracker issue with no human frustration expressed.",
+      "url": "https://github.com/CodeEagle/lzcat-apps/issues/737",
+      "author": "CodeEagle"
+    },
+    {
+      "id": "1691197709180c47",
+      "repo": "MARKANDALL/lux-frontend",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a tracking issue for an automated secret-scanning routine, not a complaint or frustration about AI-generated code.",
+      "url": "https://github.com/MARKANDALL/lux-frontend/issues/63",
+      "author": "MARKANDALL"
+    },
+    {
+      "id": "90563f1a7f60f1d6",
+      "repo": "pattidatti/Eiriksbok",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated notification log issue set up by the maintainer for AI agent routines, not an expression of pain or frustration.",
+      "url": "https://github.com/pattidatti/Eiriksbok/issues/12",
+      "author": "pattidatti"
+    },
+    {
+      "id": "db32eb2d4b0483b2",
+      "repo": "administrakt0r/AI-Agents-Safe-Coding-Skills",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a routine automated PR by an AI agent (Jules) cleanly removing an obsolete skill, with no expressed frustration or structural pain.",
+      "url": "https://github.com/administrakt0r/AI-Agents-Safe-Coding-Skills/pull/34",
+      "author": "grayfoxer"
+    },
+    {
+      "id": "473745c68f2d2ed3",
+      "repo": "theseamusjames/lopsy.art",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is a self-authored feature/bug todo list about layer mask functionality with no mention of AI-generated code.",
+      "url": "https://github.com/theseamusjames/lopsy.art/issues/329",
+      "author": "theseamusjames"
+    },
+    {
+      "id": "2568b008f0046281",
+      "repo": "kazukit-dev/dotfiles",
+      "pain_score": 0,
+      "pain_type": "not_a_pain_moment",
+      "pain_rationale": "This is an automated TODO tracking issue about a pinned dependency, with no mention of AI-generated code or AI-related frustration.",
+      "url": "https://github.com/kazukit-dev/dotfiles/issues/109",
+      "author": "kazukit-dev"
+    }
   ]
 }

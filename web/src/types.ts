@@ -28,8 +28,19 @@ export interface PainMoment {
   classification: Classification;
 }
 
+export interface ClassifiedCandidate {
+  id: string;
+  repo: string;
+  pain_score: number;
+  pain_type: string;
+  pain_rationale: string;
+  url: string;
+  author: string;
+}
+
 export interface DashboardData {
   run_timestamp: string;
   funnel: Funnel;
   pain_moments: PainMoment[];
+  classified_candidates: ClassifiedCandidate[];
 }
