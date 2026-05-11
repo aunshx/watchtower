@@ -1,0 +1,47 @@
+{
+  "cli_version": "0.6.1",
+  "checkpoint_id": "a6b943ad94f2",
+  "session_id": "bcc98d22-df73-4393-be74-3f951c8a769e",
+  "strategy": "manual-commit",
+  "created_at": "2026-05-11T23:59:58.460066Z",
+  "branch": "main",
+  "checkpoints_count": 1,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "",
+  "turn_id": "e46e0a30ba12",
+  "token_usage": {
+    "input_tokens": 392,
+    "cache_creation_tokens": 282097,
+    "cache_read_tokens": 31063450,
+    "output_tokens": 90553,
+    "api_call_count": 187
+  },
+  "session_metrics": {
+    "turn_count": 28
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 3725,
+      "user_lines_removed": 5,
+      "agent_lines_added": 16961,
+      "agent_lines_removed": 0,
+      "user_added_per_file": {
+        ".claude/settings.local.json": 23,
+        "data/classified/20260511_143141/qualified.json": 1,
+        "data/classified/20260511_143141/scored.json": 1802,
+        "data/classified/20260511_143718/qualified.json": 92,
+        "data/classified/20260511_143718/scored.json": 1802,
+        "web/index.html": 2,
+        "web/src/App.tsx": 2,
+        "web/src/components/CandidatesTable.tsx": 1
+      },
+      "user_removed_per_file": {
+        "web/index.html": 2,
+        "web/src/App.tsx": 2,
+        "web/src/components/CandidatesTable.tsx": 1
+      }
+    }
+  ]
+}

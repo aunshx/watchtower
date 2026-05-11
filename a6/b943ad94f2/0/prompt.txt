@@ -1,0 +1,283 @@
+We're doing one big pass on the Checkpoint Scout dashboard at /web. Two goals:
+
+GOAL 1: Switch from dark mode to light mode with a specific palette.
+GOAL 2: Redesign the expanded pain moment card view to feel polished and readable.
+
+Time budget: 60 minutes total. If you find yourself wanting to add features, restructure components beyond what's listed, or "improve" things outside this scope — don't. Skip it. Tell me at the end.
+
+================================
+PART 1: LIGHT MODE COLOR SYSTEM
+================================
+
+Replace the current dark palette with this exact system:
+
+Backgrounds:
+- Page body: bg-stone-50
+- Card background: bg-white
+- Hover state: bg-stone-50
+- Expanded card detail area: bg-stone-50 (subtle separation from white card)
+
+Borders:
+- Default: border-stone-200
+- Stronger when needed: border-stone-300
+
+Text:
+- Headings and primary text: text-stone-900
+- Body text: text-stone-700
+- Secondary/labels: text-stone-600
+- Captions/footer: text-stone-500
+- Monospace (repo names): text-stone-800
+
+Accent (electric blue stays):
+- Links: text-blue-600 hover:text-blue-700
+- Funnel stat numbers: text-blue-600 font-bold
+- Focus rings: ring-blue-500 ring-offset-2
+- Active tab: text-blue-600 with border-b-2 border-blue-600
+
+Pain type chips:
+- review_burden: bg-red-50 text-red-700 border border-red-200
+- intent_unclear: bg-amber-50 text-amber-800 border border-amber-200
+- ai_authorship_concern: bg-purple-50 text-purple-700 border border-purple-200
+- other: bg-stone-100 text-stone-700 border border-stone-200
+
+Score badges:
+- Score 8+: bg-blue-600 text-white
+- Score 6-7: bg-blue-50 text-blue-700 border border-blue-200
+
+Rank badge (the 1/2/3/4/5 circle):
+- bg-stone-900 text-white
+
+Shadows (essential for light mode depth):
+- Cards: shadow-sm hover:shadow-md transition-shadow duration-200
+- Expanded card detail area: inset shadow or border, no drop shadow
+
+================================
+PART 2: EXPANDED CARD VIEW REDESIGN
+================================
+
+When a user clicks a pain moment card, it expands to show the artifacts. Make the expanded view feel like a polished detail view, not a cramped panel.
+
+Current problems to fix:
+- Cluttered: too much info crammed together
+- Tab states are unclear
+- Markdown renders without spacing/hierarchy
+- Section boundaries aren't clear
+
+Required redesign:
+
+When expanded, the card section should have this structure:
+
+1. The collapsed card preview stays at top (rank, score, chip, repo, signal) — same as now
+2. Below it, a horizontal divider (border-t border-stone-200, my-6)
+3. A "Source" line: github icon + "Source: " label in text-stone-500, then the full URL as a link in text-blue-600 (truncate gracefully if too long, but show ellipsis at the end)
+4. Below source, the tab bar:
+   - Three tabs: "Public comment" / "Outreach" / "Case study"
+   - Tabs are flex items with px-4 py-3 spacing
+   - Inactive: text-stone-600 hover:text-stone-900
+   - Active: text-blue-600 font-medium with border-b-2 border-blue-600 underneath
+   - Inactive tabs have no bottom border (or transparent)
+   - Add the artifact word count or length next to each tab name in a small text-stone-500 caption (e.g., "Public comment · 87 words")
+5. Below the tabs, the active artifact content with these styles:
+   - Container: bg-stone-50 rounded-lg p-6 mt-4 border border-stone-200
+   - Use react-markdown's prose styling. Add Tailwind Typography classes: prose prose-stone max-w-none
+   - If Tailwind Typography isn't installed: npm install -D @tailwindcss/typography and add it to tailwind.config.js plugins
+6. Below the artifact content, a small footer line: "Draft only — not posted to GitHub or sent." in text-stone-500 text-sm italic, with appropriate top spacing
+
+================================
+PART 3: CARDS READING BETTER
+================================
+
+In the collapsed card state, improve hierarchy:
+
+- The signal text should be the visual hero of the card. Make it text-base text-stone-900 leading-relaxed (the readable summary, not cramped)
+- The rank + score + chip row should sit ABOVE the repo name with mb-3 spacing
+- The repo name should be its own line in text-stone-800 font-mono text-sm with mb-2
+- The signal text comes after with no extra label, just the text itself
+- At the bottom of the card: a subtle "Click to view artifacts →" hint in text-stone-500 text-sm when collapsed, replaced by "Collapse ↑" when expanded
+
+================================
+PART 4: TYPOGRAPHY HIERARCHY
+================================
+
+Set these as defaults across the page:
+
+- Hero title (Checkpoint Scout): text-5xl font-bold tracking-tight text-stone-900
+- Hero subtitle (the blue accent line): text-xl text-blue-600 mt-2
+- Hero description: text-base text-stone-600 mt-4 max-w-2xl
+- Section headings (Pain Moments): text-2xl font-semibold text-stone-900 mb-2
+- Section subheading/description: text-base text-stone-600 mb-8
+- Funnel stat numbers: text-4xl font-bold text-blue-600
+- Funnel stat labels: text-sm text-stone-600 mt-2
+
+================================
+DO NOT TOUCH
+================================
+
+- Component structure or names
+- Routes or pages (still just one page)
+- The data file or shape
+- The GitHub Actions workflows
+- The package.json beyond adding @tailwindcss/typography if needed
+- The build config
+
+================================
+WHEN DONE
+================================
+
+Run npm run dev. Tell me the URL. Don't commit yet — wait for my review.
+
+If you run out of time on any section, stop where you are. Do not try to "finish" by skimping. Better to fully complete 2 sections than half-complete 4.
+
+---
+
+commit and push
+
+---
+
+Errors in deployment
+
+---
+
+The dashboard has real layout bugs. Fix these specific issues. Don't add features, don't restructure components, just fix what's broken.
+
+BUG 1: Hero section is off-center.
+- The hero (title, subtitle, description, funnel) is offset to the right.
+- Wrap the entire page content in a centered container: max-w-7xl mx-auto px-6
+- The hero text and funnel should all be centered horizontally within this container.
+- Verify by checking that the funnel cards are equally spaced from left and right edges of the container.
+
+BUG 2: Card collapse is broken.
+- When a card is expanded, the source URL, tabs, and content are appearing BELOW the collapsed preview instead of REPLACING the lower half.
+- Fix: when expanded, the card should show:
+  Row 1: rank badge | score badge | pain type chip | collapse arrow (top right)
+  Row 2: repo name
+  Row 3: signal text
+  Row 4: horizontal divider (border-t border-stone-200 my-6)
+  Row 5: source line (github icon, "Source:" label, URL as link)
+  Row 6: tab bar (3 tabs)
+  Row 7: active artifact content in a panel
+  Row 8: "Draft only" footnote
+- When collapsed, show only Rows 1-3 plus a "Click to view artifacts →" hint at the bottom.
+- There should be NO duplicate source/tabs sections.
+- Use a single useState for isExpanded per card, conditionally render the expanded content.
+
+BUG 3: Funnel cards look thin.
+- Add border border-stone-200 to each stat card
+- Add px-8 py-6 internal padding
+- The arrows between cards should be text-stone-400 (slightly darker for visibility)
+- Add min-width so all 4 cards are equal width even if their numbers differ in digit count
+- Add shadow-sm to give grounding
+
+BUG 4: Pain Moments section heading is weak.
+- "Pain Moments" should be text-3xl font-bold text-stone-900 (bumped from text-2xl)
+- Add more breathing space above: mt-24 mb-2
+- The subtitle "Ranked by pain score..." should be text-base text-stone-600 mb-12
+- Increase contrast between section title and the cards below
+
+BUG 5: Tab word counts breaking layout.
+- Remove the word counts next to tab names (128w / 158w / 271w)
+- Just show clean tab names: "Public comment" / "Outreach" / "Case study"
+- Tabs should have whitespace-nowrap so they don't wrap
+- Active tab: text-blue-600 font-medium border-b-2 border-blue-600 pb-3
+- Inactive tab: text-stone-600 hover:text-stone-900 pb-3
+- Tab container: flex gap-8 border-b border-stone-200
+
+BUG 6: Card hover and expanded state.
+- Collapsed card: cursor-pointer with hover:shadow-md transition
+- Expanded card: full width should still feel intentional, not stretched
+- Expanded artifact content panel: bg-stone-50 rounded-lg p-6 border border-stone-200
+
+GENERAL POLISH (only if everything above is fixed):
+
+- Hero title "Checkpoint Scout": text-5xl font-bold tracking-tight (currently looks fine, just confirm)
+- Hero subtitle (the blue line): text-xl font-medium text-blue-600
+- Body description max-w-2xl mx-auto (centered, not too wide)
+- Section spacing between hero and pain moments: at least py-16 between them
+
+CONSTRAINTS:
+- Don't change any text content
+- Don't change the data structure
+- Don't add new dependencies
+- Don't restructure components beyond what's needed to fix BUG 2
+- Don't try to "improve" anything not listed above
+
+When done, run npm run dev. Send me a screenshot of the page with one card expanded so I can verify the fixes.
+
+---
+
+commit and push this
+
+---
+
+We're making three changes to the Checkpoint Scout dashboard at /web. Do them in this order.
+
+STEP 1: Update the data pipeline (Python)
+
+Modify /scripts/build_dashboard_data.py to also expose the 100 classified candidates in the output data.json, not just the 5 qualified.
+
+Add a new top-level key "classified_candidates" with an array of all 100 entries from the most recent data/classified/{timestamp}/scored.json file. For each entry include:
+- id (some unique identifier)
+- repo
+- pain_score (the classifier's score, including <6)
+- pain_type
+- pain_rationale (one sentence from the classifier)
+- url (the GitHub URL)
+- author (the commenter username if available)
+
+Re-run the script to regenerate web/public/data.json. Verify it now has both "pain_moments" (the 5 qualified) and "classified_candidates" (the 100 scored).
+
+STEP 2: Replace the expand-in-place with a modal
+
+In /web, install: npm install @headlessui/react
+
+Change the pain moment card to NOT expand in place. Instead:
+- Card click opens a full-screen modal
+- Modal is centered on desktop (max-w-4xl), full-width on mobile
+- Modal shows: rank, score, chip, repo, signal (header), source URL, the 3 tabs, active artifact content, "draft only" footer
+- Close button in top right
+- Click outside or ESC to dismiss
+- Smooth open/close transition
+
+The expanded state from before goes away entirely. Cards in the grid only show the collapsed preview.
+
+In the modal, the Outreach tab should have a "Copy to clipboard" button at the top right of the artifact content panel. Use lucide-react's Copy icon. On click, copy the markdown content to clipboard and briefly show "Copied!" feedback for 2 seconds.
+
+STEP 3: Restructure the page layout
+
+Below the hero/funnel section, restructure as follows:
+
+Section A: "Top pain moments" 
+- Heading: text-3xl font-bold "Top Pain Moments"
+- Subtitle: text-stone-600 "The 5 highest-scoring AI-coding pain moments surfaced by Checkpoint Scout this run."
+- Grid of 4 cards (top 4 by pain_score), one full row of 4 on desktop, 2 on medium, 1 on mobile
+- The 5th highest pain moment gets a slot too if the grid layout works (so actually show all 5 if it fits cleanly, otherwise top 4)
+- Each card click opens the modal
+
+Section B: "All classified candidates"
+- Heading: text-3xl font-bold "All Classified Candidates"
+- Subtitle: text-stone-600 "The full classified set. Pagination shows 50 candidates per page."
+- A paginated table with these columns: Rank | Repo (monospace) | Pain Type (chip) | Score | Pain Signal (one line) | Source (external link icon)
+- Sort by pain_score descending
+- 50 rows per page, pagination controls below (Previous / Next / page indicator)
+- Row hover: bg-stone-100
+- Table styling: clean, white background, border-stone-200 dividers
+- Rows below the threshold of qualified (score < 6) get a slightly grayed out look (text-stone-500)
+
+CONSTRAINTS:
+- Do not change the hero or funnel sections
+- Do not break the data structure for the existing pain_moments array
+- Do not add new dependencies beyond @headlessui/react
+- Light mode color palette stays the same
+- If anything is unclear or risky, pick the cleaner option and continue
+
+When done, run npm run dev. Send the local URL and a screenshot of:
+1. The dashboard with cards and table visible
+2. The modal open with the Outreach tab selected (showing the copy button)
+
+---
+
+commit and push
+
+---
+
+commit and push new changes
