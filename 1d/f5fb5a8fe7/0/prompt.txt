@@ -651,3 +651,13 @@ tool_call 2/10: fetch_repo_context</event>
 ---
 
 Run the comparison script to produce the v1 vs v2 side-by-side at outputs/comparison_{timestamp}.md
+
+---
+
+Commit v2 with a descriptive message covering: 
+- The new ReAct agent at src/agent_generator.py with 4 tools
+- The agent runs cleanly with 0 fallbacks and 0 errors at $2.29
+- The comparison output showing v2 produces more specific artifacts
+- New prompts and trace files for show-your-work transparency
+
+Then regenerate the dashboard data with the v2 artifacts and redeploy.
