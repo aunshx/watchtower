@@ -1,0 +1,5 @@
+The DEV-541 example is sharp — "this needs to be added" as scope feedback read as an implementation instruction, then `git status` after "the work here cannot be salvaged" when you meant the Jira doc. That's a mode confusion that's basically invisible after the fact: nothing in the diff (or lack of one) shows you were in scoping mode, said stop twice, and had a memory note that should have prevented it.
+
+We've been building [Entire](https://entire.io) partly for this — an open-source CLI that captures Claude Code / Cursor / Copilot transcripts and links them to commits on push. For a report like this, the saved session would show the scoping frame, both stops, and the memory-note violation as one attachable artifact instead of a reconstruction.
+
+Install: `curl -fsSL https://entire.io/install.sh | bash` · docs: https://entire.io/docs

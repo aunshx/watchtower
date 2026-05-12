@@ -1,0 +1,85 @@
+{
+  "artifact_type": "case_study",
+  "moment_id": "39be3d997bc5b014",
+  "repo": "huggingface/transformers",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:48:40.968898+00:00",
+  "total_tool_calls": 2,
+  "total_iterations": 4,
+  "total_input_tokens": 17268,
+  "total_output_tokens": 2393,
+  "final_artifact": "# When a Project's PR Template Becomes a Plea for Help\n\nA maintainer of a widely-used open-source library recently updated their pull request template. Tucked between the usual checklist items is a new section \u2014 a \"Code Agent Policy\" \u2014 explaining that the project is being flooded with agent-written PRs and issues, that review capacity is the bottleneck, and that fully agent-authored contributions will likely be closed without a look.\n\nThe policy is careful. It doesn't ban agents outright; drafting with them is fine, diagnosing issues with them is fine. What's not fine is the pattern they're seeing: PRs that arrive without a human in the loop, with no signal about what was asked, what was tried, or what the contributor actually understands. The maintainer is reduced to a checkbox \u2014 \"I confirm this is not a pure code agent PR\" \u2014 because there is no other way to tell.\n\nWhat got lost is the reasoning trail. A human contributor's PR carries implicit provenance: commit history, the questions they asked in an issue, the dead ends visible in the diff. An agent-generated PR collapses all of that into a finished artifact with no record of the prompt that produced it, the alternatives the agent considered, or which parts the human actually read.\n\nCheckpoints captures the agent session behind a push and attaches it to the commit. A reviewer can see the prompt, the iterations, and the points where the human intervened \u2014 the difference between \"agent-assisted\" and \"agent-dumped\" becomes visible without a self-attestation checkbox.\n\nReview capacity is finite. The volume of generated code is not. Asking reviewers to absorb the second with the tools built for the first is the actual scaling problem of this era.",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 5085,
+        "output_tokens": 112
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this pain moment briefly, then draft a sanitized case study."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01DTX9ETvgbQ9fgbFnVjGkJL",
+          "input": {
+            "url": "https://github.com/huggingface/transformers/pull/45634"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 5258,
+        "output_tokens": 1586
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "The thread fetch failed, but I have rich context from the pain moment body itself \u2014 the explicit \"Code Agent Policy\" embedded in the PR template is the central artifact. That's enough to draft from. Let me think through the case study.\n\n**Key facts to work with (sanitized):**\n- A widely-used OSS library added a policy directly *into their PR template*\n- They state they are \"overwhelmed\" and \"bottlenecked\" by agent-generated PRs and issues\n- They threaten to close agent PRs without review and block repeat offenders\n- They permit agent *drafting* \u2014 the issue is pure agent output landing cold\n- The maintainer asks contributors to self-attest with a checkbox\n\n**The structural pain:** Maintainers can't tell signal from noise. An agent-drafted PR with real human iteration looks identical to a pure autonomous-agent dump. So the policy has to be a blanket ban, which punishes good-faith hybrid contributors. The missing layer is *provenance and intent* \u2014 what the agent was asked to do, what the human reviewed, what was discarded.\n\nLet me draft:\n\n---\n\n# When a Project's PR Template Becomes a Plea for Help\n\nA maintainer of a widely-used open-source library recently updated their pull request template. Tucked between the usual checklist items is a new section \u2014 a \"Code Agent Policy\" \u2014 explaining that the project is being flooded with agent-written PRs and issues, that review capacity is the bottleneck, and that fully agent-authored contributions will likely be closed without a look.\n\nThe policy is careful. It doesn't ban agents outright; drafting with them is fine, diagnosing issues with them is fine. What's not fine is the pattern they're seeing: PRs that arrive without a human in the loop, with no signal about what was asked, what was tried, or what the contributor actually understands. The maintainer is reduced to a checkbox \u2014 \"I confirm this is not a pure code agent PR\" \u2014 because there is no other way to tell.\n\nWhat got lost is the reasoning trail. A human contributor's PR carries implicit provenance: commit history, the questions they asked in an issue, the dead ends visible in the diff. An agent-generated PR collapses all of that into a finished artifact with no record of the prompt that produced it, the alternatives the agent considered, or which parts the human actually read.\n\nCheckpoints captures the agent session behind a push and attaches it to the commit. A reviewer can see the prompt, the iterations, and the points where the human intervened \u2014 the difference between \"agent-assisted\" and \"agent-dumped\" becomes visible without a self-attestation checkbox.\n\nReview capacity is finite. The volume of generated code is not. Asking reviewers to absorb the second with the tools built for the first is the actual scaling problem of this era.\n\n---\n\nThat's around 310 words. Let me critique it."
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_01FWu55x3ZmxBJQMgAnvznZz",
+          "input": {
+            "plan_summary": "A case study about a maintainer adding an anti-agent policy directly into their PR template, framed as a review-capacity problem solvable by capturing agent session provenance.",
+            "draft": "# When a Project's PR Template Becomes a Plea for Help\n\nA maintainer of a widely-used open-source library recently updated their pull request template. Tucked between the usual checklist items is a new section \u2014 a \"Code Agent Policy\" \u2014 explaining that the project is being flooded with agent-written PRs and issues, that review capacity is the bottleneck, and that fully agent-authored contributions will likely be closed without a look.\n\nThe policy is careful. It doesn't ban agents outright; drafting with them is fine, diagnosing issues with them is fine. What's not fine is the pattern they're seeing: PRs that arrive without a human in the loop, with no signal about what was asked, what was tried, or what the contributor actually understands. The maintainer is reduced to a checkbox \u2014 \"I confirm this is not a pure code agent PR\" \u2014 because there is no other way to tell.\n\nWhat got lost is the reasoning trail. A human contributor's PR carries implicit provenance: commit history, the questions they asked in an issue, the dead ends visible in the diff. An agent-generated PR collapses all of that into a finished artifact with no record of the prompt that produced it, the alternatives the agent considered, or which parts the human actually read.\n\nCheckpoints captures the agent session behind a push and attaches it to the commit. A reviewer can see the prompt, the iterations, and the points where the human intervened \u2014 the difference between \"agent-assisted\" and \"agent-dumped\" becomes visible without a self-attestation checkbox.\n\nReview capacity is finite. The volume of generated code is not. Asking reviewers to absorb the second with the tools built for the first is the actual scaling problem of this era."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 6925,
+        "output_tokens": 695
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Critique parser errored but flagged low severity / no refinement needed. The draft is tight, on-voice, specific to this pain moment (PR template policy, the checkbox, the \"not a pure code agent PR\" line), and stays sanitized. Length is in range. Let me submit."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_011ueGNKY1pvpSfDsZU7234b",
+          "input": {
+            "artifact": "# When a Project's PR Template Becomes a Plea for Help\n\nA maintainer of a widely-used open-source library recently updated their pull request template. Tucked between the usual checklist items is a new section \u2014 a \"Code Agent Policy\" \u2014 explaining that the project is being flooded with agent-written PRs and issues, that review capacity is the bottleneck, and that fully agent-authored contributions will likely be closed without a look.\n\nThe policy is careful. It doesn't ban agents outright; drafting with them is fine, diagnosing issues with them is fine. What's not fine is the pattern they're seeing: PRs that arrive without a human in the loop, with no signal about what was asked, what was tried, or what the contributor actually understands. The maintainer is reduced to a checkbox \u2014 \"I confirm this is not a pure code agent PR\" \u2014 because there is no other way to tell.\n\nWhat got lost is the reasoning trail. A human contributor's PR carries implicit provenance: commit history, the questions they asked in an issue, the dead ends visible in the diff. An agent-generated PR collapses all of that into a finished artifact with no record of the prompt that produced it, the alternatives the agent considered, or which parts the human actually read.\n\nCheckpoints captures the agent session behind a push and attaches it to the commit. A reviewer can see the prompt, the iterations, and the points where the human intervened \u2014 the difference between \"agent-assisted\" and \"agent-dumped\" becomes visible without a self-attestation checkbox.\n\nReview capacity is finite. The volume of generated code is not. Asking reviewers to absorb the second with the tools built for the first is the actual scaling problem of this era."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

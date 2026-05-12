@@ -1,0 +1,5 @@
+The harness-vs-CLAUDE.md conflict is brutal because by the time `claude/clever-mendel-a7Wc6` shows up in `git branch`, the system prompt that caused it is gone — you're reconstructing intent from a branch name. Your PR #20 hook will block the commit, but won't tell you which sessions tried and why.
+
+Possible complement to the enforcement skill: [Entire](https://entire.io) is an open-source CLI that captures the Claude Code session (system prompt + transcript) and links it to the resulting commits on `git push`. You'd have the injected `"Develop on branch claude/<random>"` directive recorded alongside every commit — so audits like your 2026-04-27 sprawl writeup take seconds, and you can prove which sessions ignored CLAUDE.md vs. never saw it.
+
+`curl -fsSL https://entire.io/install.sh | bash` — docs: https://entire.io

@@ -1,0 +1,93 @@
+{
+  "artifact_type": "case_study",
+  "moment_id": "e0e46557eeeaddb7",
+  "repo": "ggerganov/llama.cpp",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:52:24.911406+00:00",
+  "total_tool_calls": 3,
+  "total_iterations": 4,
+  "total_input_tokens": 15553,
+  "total_output_tokens": 1692,
+  "final_artifact": "# The Bot That Reads Your Pull Request Before The Maintainer Does\n\nA contributor opens a pull request to a popular open-source library. Within seconds, before a human has glanced at the diff, an automated checker posts a comment: this looks predominantly AI-generated, and the project does not accept PRs like that without explicit disclosure. The contribution stalls before review can begin.\n\nThe contributor probably did use an assistant \u2014 most of us do now \u2014 and probably did meaningful work shaping the output. But none of that thinking is in the artifact. The PR description is a clean summary. The commits are clean squashes. From the outside, it is indistinguishable from an unattended agent dump, and the maintainers have written policies precisely to keep those out of their queue. The burden of proving otherwise falls on the contributor, after the fact, in a comment thread.\n\nWhat is missing is everything that happened before `git push`: the prompts that framed the task, the iterations the contributor rejected, the manual edits, the places they overrode the model. That record exists \u2014 briefly \u2014 in an editor pane somewhere, and then it is gone. Reviewers are left to infer authorship from style, and bots are left to guess from surface features.\n\nThis is the gap Checkpoints sits in. It captures the agent session as it happens and binds it to the commits it produced, so disclosure is not a paragraph a contributor writes from memory at submission time. It is the actual session, attached to the actual change.\n\nMaintainers are not really objecting to AI. They are objecting to artifacts that arrive without context. Git versions the code; somebody has to version the reasoning behind it.",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 3817,
+        "output_tokens": 192
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this pain moment to write a grounded case study. Let me start by reading the actual thread and contribution guidelines."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01TETRTmyH9FZK9jaXW3Z34V",
+          "input": {
+            "url": "https://github.com/ggml-org/llama.cpp/pull/22944"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_repo_context",
+          "id": "toolu_01Aty8R7NAEnizZVUVnQj6qy",
+          "input": {
+            "repo": "ggml-org/llama.cpp"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 5468,
+        "output_tokens": 719
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I have enough context. The contributing guidelines are very specific: a strict AI policy requiring explicit disclosure, manual review, and a bias against AI-generated code. The bot auto-flags PRs. Let me draft."
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_01DxQMsVKcf6rMHDA4pj5Xhm",
+          "input": {
+            "plan_summary": "A 200-300 word case study about an AI-PR being auto-flagged by a maintainer bot for lacking disclosure, framed around the idea that intent/provenance is what got lost.",
+            "draft": "# The Bot That Reads Your Pull Request Before The Maintainer Does\n\nA contributor opens a pull request to a popular open-source library. Within seconds, before a human has glanced at the diff, an automated checker posts a comment: this looks predominantly AI-generated, and the project does not accept PRs like that without explicit disclosure. The contribution stalls before review can begin.\n\nThe contributor probably did use an assistant \u2014 most of us do now \u2014 and probably did meaningful work shaping the output. But none of that thinking is in the artifact. The PR description is a clean summary. The commits are clean squashes. From the outside, it is indistinguishable from an unattended agent dump, and the maintainers have written policies precisely to keep those out of their queue. The burden of proving otherwise falls on the contributor, after the fact, in a comment thread.\n\nWhat is missing is everything that happened before `git push`: the prompts that framed the task, the iterations the contributor rejected, the manual edits, the places they overrode the model. That record exists \u2014 briefly \u2014 in an editor pane somewhere, and then it is gone. Reviewers are left to infer authorship from style.\n\nThis is the gap Checkpoints is built for. It captures the agent session as it happens and binds it to the commits it produced, so disclosure is not a paragraph a contributor writes from memory at submission time. It is the actual session, attached to the actual change.\n\nMaintainers are not really objecting to AI. They are objecting to artifacts that arrive without context. Git versions the code; somebody has to version the reasoning behind it."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 6268,
+        "output_tokens": 781
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "The critique came back with only a parser error (no substantive issues). Let me do my own quick review: the piece hits the structural arc, stays under 300 words (~285), sanitizes specifics (no repo name, no contributor name, no PR number), avoids marketing language, has no CTA, and matches the builder-to-builder register. The closing line \u2014 \"Git versions the code; somebody has to version the reasoning behind it\" \u2014 echoes the launch-post style without quoting it.\n\nOne small refinement: \"This is the gap Checkpoints is built for\" is slightly closer to marketing than I'd like. Let me soften it to be more observational."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_01URBC1jXtRrAEES5qf72p9z",
+          "input": {
+            "artifact": "# The Bot That Reads Your Pull Request Before The Maintainer Does\n\nA contributor opens a pull request to a popular open-source library. Within seconds, before a human has glanced at the diff, an automated checker posts a comment: this looks predominantly AI-generated, and the project does not accept PRs like that without explicit disclosure. The contribution stalls before review can begin.\n\nThe contributor probably did use an assistant \u2014 most of us do now \u2014 and probably did meaningful work shaping the output. But none of that thinking is in the artifact. The PR description is a clean summary. The commits are clean squashes. From the outside, it is indistinguishable from an unattended agent dump, and the maintainers have written policies precisely to keep those out of their queue. The burden of proving otherwise falls on the contributor, after the fact, in a comment thread.\n\nWhat is missing is everything that happened before `git push`: the prompts that framed the task, the iterations the contributor rejected, the manual edits, the places they overrode the model. That record exists \u2014 briefly \u2014 in an editor pane somewhere, and then it is gone. Reviewers are left to infer authorship from style, and bots are left to guess from surface features.\n\nThis is the gap Checkpoints sits in. It captures the agent session as it happens and binds it to the commits it produced, so disclosure is not a paragraph a contributor writes from memory at submission time. It is the actual session, attached to the actual change.\n\nMaintainers are not really objecting to AI. They are objecting to artifacts that arrive without context. Git versions the code; somebody has to version the reasoning behind it."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

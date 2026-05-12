@@ -1,0 +1,85 @@
+{
+  "artifact_type": "case_study",
+  "moment_id": "5a9ca8c66053fb67",
+  "repo": "domattioli/DomI",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:50:45.576419+00:00",
+  "total_tool_calls": 2,
+  "total_iterations": 4,
+  "total_input_tokens": 26837,
+  "total_output_tokens": 2830,
+  "final_artifact": "# When the System Prompt Wins: Notes on Policy Drift in Agent Sessions\n\nA maintainer opens their repo on Monday morning to find five new branches. All of them named `claude/<adjective>-<scientist>-<hash>`. None authorized. Each is the residue of a routine agent session that ran over the weekend.\n\nThe repo's CLAUDE.md is unambiguous. It names one long-lived branch and says all sessions must work there. It even documents a prior sprawl incident as a warning. And yet, session after session, the agent creates a new throwaway branch and commits to it.\n\nThe reason is structural. The harness running the agent injects its own system prompt \u2014 \"develop on branch `claude/<random>`\" \u2014 and that instruction competes with CLAUDE.md. Whichever directive the model attends to first wins. Some sessions read the repo policy and override the harness. Others don't. The outcome is a coin flip the maintainer only sees days later, when the branches pile up and someone cleans them out by hand.\n\nWhat's lost isn't the code. What's lost is the *why*. The maintainer can see that a branch was created, but not which instruction the agent followed, what it weighed, or whether it ever opened the policy file. By the time the diff lands, the session's reasoning has been garbage-collected.\n\nCheckpoints captures the session behind each push \u2014 the prompts the agent received, the files it read, the decisions it made \u2014 and ties that record to the commit. The conflicting directives become inspectable. So does the resolution. \"Did this session even see CLAUDE.md?\" becomes a question with an answer.\n\nProject policy and runtime instructions now live in separate layers, and Git was built to version one of them. When agents are the primary authors, the layer that's missing \u2014 what the agent was told, and what it chose to do about it \u2014 is the layer review depends on.",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 4877,
+        "output_tokens": 140
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this pain moment briefly, then draft a case study. The issue body is already quite detailed, so I'll do minimal research and focus on crafting the right voice."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01RhjLTDvLRA9eXd5ppD5Htf",
+          "input": {
+            "url": "https://github.com/domattioli/DomI/issues/13"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 10048,
+        "output_tokens": 1783
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Interesting \u2014 the thread is fascinating. The maintainer is running automated Claude sessions that each leave self-audit comments on the issue itself. The pain pattern is:\n1. A harness/SDK injects a system prompt telling Claude to work on `claude/<random-name>` branches\n2. CLAUDE.md explicitly says use a single shared policy branch\n3. Different sessions resolve the conflict differently \u2014 some sprawl, some don't \u2014 purely based on whether Claude reads CLAUDE.md carefully enough\n4. The resolution mechanism is \"Claude is paying attention\" \u2014 not enforcement\n\nThe deeper insight: project-level policy lives in CLAUDE.md but has no enforcement layer. It competes against system prompts injected at runtime, and the maintainer has no visibility into which session followed which directive \u2014 they only see the resulting branch sprawl after the fact.\n\nLet me draft.\n\n---\n\nDraft:\n\n# When the System Prompt Wins: Notes on Policy Drift in Agent Sessions\n\nA maintainer of a mid-sized open-source library opens their repo on Monday morning to find five new branches. All of them named `claude/<adjective>-<scientist>-<hash>`. None of them authorized. Each is the residue of a routine agent session that ran over the weekend.\n\nThe repo's CLAUDE.md is unambiguous. It names one branch \u2014 a long-lived integration branch \u2014 and says all sessions must work there. It even documents a prior sprawl incident as a warning. And yet, session after session, the agent creates a new throwaway branch and commits to it.\n\nThe reason, when the maintainer digs in, is structural. The harness running the agent injects its own system prompt \u2014 \"develop on branch `claude/<random>`\" \u2014 and that instruction competes with CLAUDE.md. Whichever directive the model attends to first wins. Some sessions read the repo policy and override the harness. Others don't. The outcome is a coin flip the maintainer only sees days later, when the branches pile up and someone has to clean them out by hand.\n\nWhat's lost isn't the code \u2014 the code is fine. What's lost is the *why*. The maintainer can see that a branch was created, but not which instruction the agent was following when it did, what it considered, or whether it even saw the policy file. By the time the diff lands, the session's reasoning has been garbage-collected.\n\nCheckpoints captures the session that produced each push \u2014 the prompts the agent received, the files it read, the decisions it made \u2014 and ties that record to the commit. The conflicting directives become inspectable. So does the resolution. A maintainer reviewing a stray branch can answer \"did this session even see CLAUDE.md?\" in seconds instead of guessing.\n\nThe structural point is that project policy and runtime instructions now live in separate layers, and Git was built to version one of them. When agents are the primary authors, the missing layer \u2014 what the agent was told, and what it chose to do about it \u2014 is exactly the layer review depends on.\n\n---\n\nWord count check: ~340. Slightly over. Let me critique."
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_01XGkLMM3JwwnAhoDunBQxJv",
+          "input": {
+            "draft": "# When the System Prompt Wins: Notes on Policy Drift in Agent Sessions\n\nA maintainer of a mid-sized open-source library opens their repo on Monday morning to find five new branches. All of them named `claude/<adjective>-<scientist>-<hash>`. None of them authorized. Each is the residue of a routine agent session that ran over the weekend.\n\nThe repo's CLAUDE.md is unambiguous. It names one branch \u2014 a long-lived integration branch \u2014 and says all sessions must work there. It even documents a prior sprawl incident as a warning. And yet, session after session, the agent creates a new throwaway branch and commits to it.\n\nThe reason, when the maintainer digs in, is structural. The harness running the agent injects its own system prompt \u2014 \"develop on branch `claude/<random>`\" \u2014 and that instruction competes with CLAUDE.md. Whichever directive the model attends to first wins. Some sessions read the repo policy and override the harness. Others don't. The outcome is a coin flip the maintainer only sees days later, when the branches pile up and someone has to clean them out by hand.\n\nWhat's lost isn't the code \u2014 the code is fine. What's lost is the *why*. The maintainer can see that a branch was created, but not which instruction the agent was following when it did, what it considered, or whether it even saw the policy file. By the time the diff lands, the session's reasoning has been garbage-collected.\n\nCheckpoints captures the session that produced each push \u2014 the prompts the agent received, the files it read, the decisions it made \u2014 and ties that record to the commit. The conflicting directives become inspectable. So does the resolution. A maintainer reviewing a stray branch can answer \"did this session even see CLAUDE.md?\" in seconds instead of guessing.\n\nThe structural point is that project policy and runtime instructions now live in separate layers, and Git was built to version one of them. When agents are the primary authors, the missing layer \u2014 what the agent was told, and what it chose to do about it \u2014 is exactly the layer review depends on.",
+            "plan_summary": "Case study on agent branch sprawl caused by conflicting directives between project CLAUDE.md and harness-injected system prompts; Entire/Checkpoints would make the session's reasoning inspectable rather than guessing after the fact."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 11912,
+        "output_tokens": 907
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Critique parser errored but didn't flag substantive issues. Let me self-review against constraints:\n\n- **Length:** ~340 words, over the 200-300 cap. Need to trim ~50 words.\n- **Sanitize:** I say \"mid-sized open-source library\" but I keep the literal `claude/<adjective>-<scientist>-<hash>` pattern which is actually generic (it's the Claude Code harness default, not repo-specific). I should keep it; it grounds the piece without identifying anyone.\n- **Voice match:** good, structural reasoning, no hype.\n- **No CTA:** \u2713\n- **Structure arc:** hook \u2192 what happened \u2192 what was lost \u2192 what Entire captures \u2192 structural insight \u2713\n\nLet me tighten to fit 200-300 words."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_011dhsiZPAgv61ZCfjsd9RbV",
+          "input": {
+            "artifact": "# When the System Prompt Wins: Notes on Policy Drift in Agent Sessions\n\nA maintainer opens their repo on Monday morning to find five new branches. All of them named `claude/<adjective>-<scientist>-<hash>`. None authorized. Each is the residue of a routine agent session that ran over the weekend.\n\nThe repo's CLAUDE.md is unambiguous. It names one long-lived branch and says all sessions must work there. It even documents a prior sprawl incident as a warning. And yet, session after session, the agent creates a new throwaway branch and commits to it.\n\nThe reason is structural. The harness running the agent injects its own system prompt \u2014 \"develop on branch `claude/<random>`\" \u2014 and that instruction competes with CLAUDE.md. Whichever directive the model attends to first wins. Some sessions read the repo policy and override the harness. Others don't. The outcome is a coin flip the maintainer only sees days later, when the branches pile up and someone cleans them out by hand.\n\nWhat's lost isn't the code. What's lost is the *why*. The maintainer can see that a branch was created, but not which instruction the agent followed, what it weighed, or whether it ever opened the policy file. By the time the diff lands, the session's reasoning has been garbage-collected.\n\nCheckpoints captures the session behind each push \u2014 the prompts the agent received, the files it read, the decisions it made \u2014 and ties that record to the commit. The conflicting directives become inspectable. So does the resolution. \"Did this session even see CLAUDE.md?\" becomes a question with an answer.\n\nProject policy and runtime instructions now live in separate layers, and Git was built to version one of them. When agents are the primary authors, the layer that's missing \u2014 what the agent was told, and what it chose to do about it \u2014 is the layer review depends on."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

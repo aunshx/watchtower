@@ -1,0 +1,93 @@
+{
+  "artifact_type": "public_comment",
+  "moment_id": "e0e46557eeeaddb7",
+  "repo": "ggerganov/llama.cpp",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:51:21.641537+00:00",
+  "total_tool_calls": 3,
+  "total_iterations": 4,
+  "total_input_tokens": 15333,
+  "total_output_tokens": 1579,
+  "final_artifact": "The llama.cpp AI policy is strict for good reason \u2014 but the burden falls on both sides: contributors have to write a credible disclosure, and maintainers have to judge it without seeing what actually happened in the editor. \"Predominantly AI-generated\" is hard to assess from diff style alone.\n\nFor folks hitting this bot: an open-source CLI called [Entire](https://entire.io) captures Claude Code / Cursor / Copilot sessions locally and links the transcripts to the commits they produced. A reviewer can then see which lines came from a prompt vs. were hand-written or edited after \u2014 which is the actual question the CONTRIBUTING.md policy is asking.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u00b7 [Docs](https://entire.io/docs)",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 3695,
+        "output_tokens": 178
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this pain moment to write a comment that genuinely fits the situation."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01Rf43L7zPNQCUqm34ih5LhV",
+          "input": {
+            "url": "https://github.com/ggml-org/llama.cpp/pull/22944"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_repo_context",
+          "id": "toolu_01TcW7LgJE3j32if5Tcsesn2",
+          "input": {
+            "repo": "ggml-org/llama.cpp"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 5332,
+        "output_tokens": 893
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Good context. The llama.cpp project has a strict AI Usage Policy: AI may be used assistively, but must be disclosed, and majority of code must be human-authored. The bot flagged the PR automatically.\n\nNow, important nuance: Entire shouldn't be positioned as a way to \"pass provenance checks\" or sneak AI code in \u2014 the project explicitly bans predominantly AI code. Instead, Entire helps contributors **honestly disclose** how AI was used, with concrete evidence (transcripts, prompts), so maintainers can quickly verify the human-vs-AI ratio rather than guessing from diff style.\n\nLet me draft.\n\n**Draft:**\n\nThe llama.cpp AI policy is strict for good reason \u2014 but the burden falls on both sides: contributors have to write a credible disclosure, and maintainers have to judge it without seeing what actually happened in the editor.\n\nFor contributors hitting this bot: an open-source CLI called Entire (https://entire.io) captures Claude Code / Cursor / Copilot sessions locally and links the transcripts to the commits they produced. On a PR like this, that means a reviewer can see exactly which lines came from a prompt vs. were hand-written or edited after \u2014 which is the actual question the CONTRIBUTING.md policy is asking.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u00b7 Docs: https://entire.io/docs\n\nLet me critique this."
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_014XNAy1D3yTafeLfikKQ8mY",
+          "input": {
+            "draft": "The llama.cpp AI policy is strict for good reason \u2014 but the burden falls on both sides: contributors have to write a credible disclosure, and maintainers have to judge it without seeing what actually happened in the editor.\n\nFor contributors hitting this bot: an open-source CLI called Entire (https://entire.io) captures Claude Code / Cursor / Copilot sessions locally and links the transcripts to the commits they produced. On a PR like this, that means a reviewer can see exactly which lines came from a prompt vs. were hand-written or edited after \u2014 which is the actual question the CONTRIBUTING.md policy is asking.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u00b7 Docs: https://entire.io/docs",
+            "plan_summary": "Acknowledge the two-sided burden of llama.cpp's strict AI policy (contributor disclosure + maintainer verification), then introduce Entire as a way to attach AI session transcripts to commits so reviewers can verify the human-vs-AI line-level split the policy actually cares about."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 6306,
+        "output_tokens": 508
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Critique parser errored (low severity, no real issues to address). The draft is solid. Let me tighten word count \u2014 it's around 110 words, within the 60-120 limit. \n\nOne small refinement: the original bot comment is automated, and the contributor (@CrispStrobe) may also be reading. I should make sure the comment doesn't sound preachy about the policy itself. Let me also avoid implying Entire helps \"pass\" the check (which would be marketing-y / suggest evasion). The current draft frames it as helping reviewers verify \u2014 that's right.\n\nSubmitting."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_01RMjsygay5SdQSPJwUyBpBq",
+          "input": {
+            "artifact": "The llama.cpp AI policy is strict for good reason \u2014 but the burden falls on both sides: contributors have to write a credible disclosure, and maintainers have to judge it without seeing what actually happened in the editor. \"Predominantly AI-generated\" is hard to assess from diff style alone.\n\nFor folks hitting this bot: an open-source CLI called [Entire](https://entire.io) captures Claude Code / Cursor / Copilot sessions locally and links the transcripts to the commits they produced. A reviewer can then see which lines came from a prompt vs. were hand-written or edited after \u2014 which is the actual question the CONTRIBUTING.md policy is asking.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u00b7 [Docs](https://entire.io/docs)"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

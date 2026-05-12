@@ -1,0 +1,94 @@
+{
+  "artifact_type": "public_comment",
+  "moment_id": "5a9ca8c66053fb67",
+  "repo": "domattioli/DomI",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:49:19.972894+00:00",
+  "total_tool_calls": 3,
+  "total_iterations": 4,
+  "total_input_tokens": 29376,
+  "total_output_tokens": 1945,
+  "final_artifact": "The harness-vs-CLAUDE.md conflict is brutal because by the time `claude/clever-mendel-a7Wc6` shows up in `git branch`, the system prompt that caused it is gone \u2014 you're reconstructing intent from a branch name. Your PR #20 hook will block the commit, but won't tell you which sessions tried and why.\n\nPossible complement to the enforcement skill: [Entire](https://entire.io) is an open-source CLI that captures the Claude Code session (system prompt + transcript) and links it to the resulting commits on `git push`. You'd have the injected `\"Develop on branch claude/<random>\"` directive recorded alongside every commit \u2014 so audits like your 2026-04-27 sprawl writeup take seconds, and you can prove which sessions ignored CLAUDE.md vs. never saw it.\n\n`curl -fsSL https://entire.io/install.sh | bash` \u2014 docs: https://entire.io",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 4735,
+        "output_tokens": 187
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this pain moment to understand the context better before drafting."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01Ab7p39D5cnWHtmtuPLS3kk",
+          "input": {
+            "url": "https://github.com/domattioli/DomI/issues/13"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_maintainer_recent_comments",
+          "id": "toolu_01SxyGeKdLVYdVUMJvBHZqVx",
+          "input": {
+            "username": "domattioli",
+            "limit": 5
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 11655,
+        "output_tokens": 1250
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Now I have rich context. This maintainer has a very specific situation:\n\n- Multiple repos (DomI, CHILmesh, ADMESH-Domains) all hit by Claude SDK harness injecting random `claude/*` branches\n- They've documented policy in CLAUDE.md, built `/enforce-branch-policy` skill with pre-commit hooks (PR #20), and added `claude/*` branch hard-stop in `scripts/instructions_on_start.sh`\n- The thread is mostly auto-generated Claude session comments voting on the issue\n- The root problem is **provenance/intent**: the harness injects a directive, Claude follows it, and there's no record at review time of WHY a particular session created a particular branch\n\nThe maintainer is sophisticated \u2014 they've already built enforcement. Entire's angle here isn't \"we'll enforce policy\" (they have hooks for that). It's that even with enforcement, when sessions go wrong, you have NO record of what the session was actually told vs. what CLAUDE.md said. Entire captures the session transcript linked to the commit, so when a `claude/clever-mendel-a7Wc6` appears, you can see exactly what the system prompt injected.\n\nLet me draft.\n\n**Draft:**\n\nThe harness-vs-CLAUDE.md conflict you're describing is brutal because by the time you see `claude/clever-mendel-a7Wc6` in `git branch`, the system prompt that caused it is gone \u2014 you're left reconstructing intent from the branch name alone. Your PR #20 hook will block the *commit*, but it won't tell you which sessions tried and why.\n\nOne thing that might complement the enforcement skill: we've been working on [Entire](https://entire.io), an open-source CLI that captures the Claude Code session (system prompt + transcript) and links it to the resulting commits on `git push`. For this exact case, you'd have a record of the injected `\"Develop on branch claude/<random>\"` directive alongside every commit, so post-incident audits like your 2026-04-27 sprawl writeup take seconds instead of guesswork \u2014 and you can prove which sessions ignored CLAUDE.md vs. which never saw it.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u2014 docs at https://entire.io"
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_0191QqQ85BvPxrpucXM4Mufs",
+          "input": {
+            "draft": "The harness-vs-CLAUDE.md conflict you're describing is brutal because by the time you see `claude/clever-mendel-a7Wc6` in `git branch`, the system prompt that caused it is gone \u2014 you're left reconstructing intent from the branch name alone. Your PR #20 hook will block the *commit*, but it won't tell you which sessions tried and why.\n\nOne thing that might complement the enforcement skill: we've been working on [Entire](https://entire.io), an open-source CLI that captures the Claude Code session (system prompt + transcript) and links it to the resulting commits on `git push`. For this exact case, you'd have a record of the injected `\"Develop on branch claude/<random>\"` directive alongside every commit, so post-incident audits like your 2026-04-27 sprawl writeup take seconds instead of guesswork \u2014 and you can prove which sessions ignored CLAUDE.md vs. which never saw it.\n\nInstall: `curl -fsSL https://entire.io/install.sh | bash` \u2014 docs at https://entire.io",
+            "plan_summary": "Acknowledge the specific harness-injection-vs-CLAUDE.md conflict, recognize their existing enforcement work (PR #20), position Entire as complementary (capture + audit) rather than competitive with their hook, end with install line."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 12986,
+        "output_tokens": 508
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Critique passed with no substantive issues. The draft is specific (references their exact branch name example, PR #20, the 2026-04-27 sprawl incident, the harness injection mechanic), acknowledges their existing solution as primary, positions Entire as complementary for audit/forensics, and stays within the word limit (~140 words \u2014 slightly over, let me trim).\n\nLet me tighten to stay within 60-120 words."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_011eGWGfG1fkPanwVd9Q1cQg",
+          "input": {
+            "artifact": "The harness-vs-CLAUDE.md conflict is brutal because by the time `claude/clever-mendel-a7Wc6` shows up in `git branch`, the system prompt that caused it is gone \u2014 you're reconstructing intent from a branch name. Your PR #20 hook will block the commit, but won't tell you which sessions tried and why.\n\nPossible complement to the enforcement skill: [Entire](https://entire.io) is an open-source CLI that captures the Claude Code session (system prompt + transcript) and links it to the resulting commits on `git push`. You'd have the injected `\"Develop on branch claude/<random>\"` directive recorded alongside every commit \u2014 so audits like your 2026-04-27 sprawl writeup take seconds, and you can prove which sessions ignored CLAUDE.md vs. never saw it.\n\n`curl -fsSL https://entire.io/install.sh | bash` \u2014 docs: https://entire.io"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

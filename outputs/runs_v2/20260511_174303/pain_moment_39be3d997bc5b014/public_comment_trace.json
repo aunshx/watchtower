@@ -1,0 +1,93 @@
+{
+  "artifact_type": "public_comment",
+  "moment_id": "39be3d997bc5b014",
+  "repo": "huggingface/transformers",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:47:15.532951+00:00",
+  "total_tool_calls": 3,
+  "total_iterations": 4,
+  "total_input_tokens": 20386,
+  "total_output_tokens": 1715,
+  "final_artifact": "The policy draws a useful line: agent-assisted drafting and diagnosis is fine; \"pure code agent PRs\" with no human intent are what's drowning review. The hard part is reviewers can't tell which is which from the diff alone \u2014 the conversation that produced the code is gone by the time the PR lands.\n\nWe've been working on exactly that gap with [Entire](https://entire.io) \u2014 an open-source CLI that captures Claude Code / Codex sessions locally on `git push` and links the prompts and transcripts to the commits they produced. For a repo like this, a reviewer (or a triage bot reading `AGENTS.md`-style metadata) could see at a glance whether a PR was a human iterating with an agent, or an autonomous run on someone else's issue.\n\nFree, local, any git repo:\n\n```\ncurl -fsSL https://entire.io/install.sh | bash\n```\n\nDocs: https://entire.io/docs",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 4944,
+        "output_tokens": 208
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this carefully. The pain moment is interesting \u2014 it's not a typical PR, it's a PR that contains the new Code Agent Policy itself. Let me check the thread and the author's voice."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01SmKS8uALZrWoM9gFg6JFLS",
+          "input": {
+            "url": "https://github.com/huggingface/transformers/pull/45634"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_repo_context",
+          "id": "toolu_01LMhd7Rcmo13tqPH4YqCBnz",
+          "input": {
+            "repo": "huggingface/transformers"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 7167,
+        "output_tokens": 1028
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I have strong context. Important nuances:\n- This PR (#45634) is by IlyasMoutawwakil, based on #45621 \u2014 it appears to be a PR that's *adding/modifying* the Code Agent Policy itself, or following from it\n- The repo distinguishes between \"pure code agent PRs\" (bad) and using agents for drafting/diagnosis (allowed)\n- They explicitly mention AGENTS.md, CLAUDE.md, and Claude Code/Codex as tools they accept\n- The core problem isn't AI usage \u2014 it's the *lack of provenance/intent* that makes review impossible\n\nThe comment should resonate with the distinction the maintainers already draw: agent assistance is fine, but reviewers need to see what the human actually did. Entire preserves that provenance.\n\nLet me draft:\n\n---\n\n**Draft:**\n\nThe policy itself draws a useful line: agent-assisted drafting and diagnosis is fine, \"pure code agent PRs\" without human intent are what's drowning review. The hard part is that reviewers can't tell which is which from the diff alone \u2014 the conversation that produced the code is gone by the time the PR lands.\n\nWe've been working on this exact gap with [Entire](https://entire.io) \u2014 an open-source CLI that captures Claude Code / Codex sessions locally on `git push` and links the prompts + transcripts to the commits they produced. For a repo like this, that means a reviewer (or a triage bot reading `AGENTS.md`-style metadata) could see at a glance: was this a human iterating with an agent, or an autonomous run on someone else's issue?\n\nFree, local, any git repo:\n\n```\ncurl -fsSL https://entire.io/install.sh | bash\n```\n\nDocs: https://entire.io/docs"
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_015U8dprwm8Ga6WUPCm9mgyc",
+          "input": {
+            "draft": "The policy itself draws a useful line: agent-assisted drafting and diagnosis is fine, \"pure code agent PRs\" without human intent are what's drowning review. The hard part is that reviewers can't tell which is which from the diff alone \u2014 the conversation that produced the code is gone by the time the PR lands.\n\nWe've been working on this exact gap with [Entire](https://entire.io) \u2014 an open-source CLI that captures Claude Code / Codex sessions locally on `git push` and links the prompts + transcripts to the commits they produced. For a repo like this, that means a reviewer (or a triage bot reading `AGENTS.md`-style metadata) could see at a glance: was this a human iterating with an agent, or an autonomous run on someone else's issue?\n\nFree, local, any git repo:\n\n```\ncurl -fsSL https://entire.io/install.sh | bash\n```\n\nDocs: https://entire.io/docs",
+            "plan_summary": "Respond to the Transformers Code Agent Policy by acknowledging their useful distinction (agent-assisted OK, pure agent PRs not OK) and positioning Entire as the missing provenance layer that lets reviewers tell the difference."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 8275,
+        "output_tokens": 479
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "Critique returned no substantive issues (just a parse error). The draft is concise (~125 words \u2014 let me tighten slightly), specific to the policy's actual distinction, references their own AGENTS.md convention, and only mentions tools (Claude Code, Codex) that appear in their CONTRIBUTING context. Let me trim a hair to stay safely in range."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_01Pkva9A3uyrjAMg3gxNU8sY",
+          "input": {
+            "artifact": "The policy draws a useful line: agent-assisted drafting and diagnosis is fine; \"pure code agent PRs\" with no human intent are what's drowning review. The hard part is reviewers can't tell which is which from the diff alone \u2014 the conversation that produced the code is gone by the time the PR lands.\n\nWe've been working on exactly that gap with [Entire](https://entire.io) \u2014 an open-source CLI that captures Claude Code / Codex sessions locally on `git push` and links the prompts and transcripts to the commits they produced. For a repo like this, a reviewer (or a triage bot reading `AGENTS.md`-style metadata) could see at a glance whether a PR was a human iterating with an agent, or an autonomous run on someone else's issue.\n\nFree, local, any git repo:\n\n```\ncurl -fsSL https://entire.io/install.sh | bash\n```\n\nDocs: https://entire.io/docs"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}

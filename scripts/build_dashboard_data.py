@@ -60,9 +60,14 @@ def main() -> None:
     scored = json.loads(scored_path.read_text())
     print(f"Loaded {len(qualified)} qualified + {len(scored)} scored candidates")
 
-    # Latest output run
-    output_run = find_latest(OUTPUTS_DIR, "runs")
-    print(f"Loading artifacts from {output_run}")
+    # Prefer v2 (agentic) artifacts if available, fall back to v1
+    runs_v2_dir = OUTPUTS_DIR / "runs_v2"
+    if runs_v2_dir.exists() and any(runs_v2_dir.iterdir()):
+        output_run = find_latest(OUTPUTS_DIR, "runs_v2")
+        print(f"Loading v2 (agentic) artifacts from {output_run}")
+    else:
+        output_run = find_latest(OUTPUTS_DIR, "runs")
+        print(f"Loading v1 artifacts from {output_run}")
 
     # Parse run timestamp
     ts_str = output_run.name

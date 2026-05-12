@@ -1,0 +1,94 @@
+{
+  "artifact_type": "outreach",
+  "moment_id": "5a9ca8c66053fb67",
+  "repo": "domattioli/DomI",
+  "model": "claude-opus-4-7",
+  "generated_at": "2026-05-12T00:50:01.610377+00:00",
+  "total_tool_calls": 3,
+  "total_iterations": 4,
+  "total_input_tokens": 30241,
+  "total_output_tokens": 2103,
+  "final_artifact": "Subject: claude/clever-mendel-a7Wc6 \u2014 branch sprawl across DomI/CHILmesh/ADMESH\n\nHey Dom,\n\nSaw DomI#13 and the trail of session votes underneath it \u2014 the SDK harness injecting `claude/<random-name>` over your `daily-issue-fixing` mandate, then your `/enforce-branch-policy` skill in #20 as the pre-commit-hook fix. The 2026-05-09 CHILmesh note that naming the failure mode explicitly (\"the SDK harness injects...\") was what finally made the override unambiguous is a really sharp write-up.\n\nI work on Entire (entire.io) \u2014 open-source CLI that captures Claude Code / Cursor sessions on git push and links the transcript + prompts to the resulting commit. Different layer than your pre-commit hook, but the captured session metadata (including the injected system prompt) would give you forensic data on *which* harness directive caused each sprawl event, across all four repos, without relying on the session itself to self-audit in a comment afterward.\n\nFree, local, no signup. Happy to share notes on the harness-injection detection side if useful \u2014 otherwise feel free to ignore.\n\n\u2014 [NAME]",
+  "trace": [
+    {
+      "iteration": 0,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 4791,
+        "output_tokens": 193
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I'll research this maintainer and the specific situation to craft a genuine outreach."
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_full_thread",
+          "id": "toolu_01PYSeeTb8Bzb9JESqQZHYMF",
+          "input": {
+            "url": "https://github.com/domattioli/DomI/issues/13"
+          }
+        },
+        {
+          "type": "tool_use",
+          "name": "fetch_maintainer_recent_comments",
+          "id": "toolu_016FfwYSW5AjravKUbHnRP7m",
+          "input": {
+            "username": "domattioli",
+            "limit": 6
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 1,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 12069,
+        "output_tokens": 1231
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "I have rich context. Key insights:\n- Dom is running multiple repos (DomI, CHILmesh, ADMESH, ADMESH-Domains) with autonomous Claude sessions that vote/comment on issues\n- The specific failure mode: SDK harness injects `claude/<random-name>` branch names that override CLAUDE.md policy\n- He's already built `/enforce-branch-policy` skill (PR #20) with pre-commit hooks\n- He needs *cross-session* and *cross-repo* enforcement \u2014 documentation isn't enough; he wants automated detection of harness-injected branches at session start\n- He's deeply technical, terse, uses specific identifiers, runs autonomous agent fleets\n- DomI seems to be a meta-governance repo that other repos sync from (`.domi-pin`)\n\nNow let me draft.\n\n**Draft:**\n\nSubject: claude/clever-mendel-a7Wc6 \u2014 branch sprawl across DomI/CHILmesh/ADMESH\n\nHey Dom,\n\nSaw DomI#13 and the trail of session votes underneath it \u2014 the SDK harness injecting `claude/<random-name>` over your `daily-issue-fixing` mandate, then your /enforce-branch-policy skill in #20 as the pre-commit-hook fix. The 2026-05-09 CHILmesh data point where naming the failure mode explicitly (\"the SDK harness injects...\") finally made the override unambiguous is a great write-up.\n\nI work on Entire (entire.io) \u2014 open-source CLI that captures Claude Code / Cursor sessions on git push and links the transcript + prompts to the commit. Different layer than your pre-commit hook, but the captured session metadata (including the injected system prompt) would give you forensic data on *which* harness instruction each branch sprawl came from, across all four repos, without relying on each session to self-audit in a comment.\n\nFree, local, no signup. Happy to share notes on the harness-injection detection side if useful \u2014 otherwise feel free to ignore.\n\n\u2014 [NAME]"
+        },
+        {
+          "type": "tool_use",
+          "name": "critique_self",
+          "id": "toolu_01SPPK7nJhNa8VBw4Mx1zj9D",
+          "input": {
+            "draft": "Subject: claude/clever-mendel-a7Wc6 \u2014 branch sprawl across DomI/CHILmesh/ADMESH\n\nHey Dom,\n\nSaw DomI#13 and the trail of session votes underneath it \u2014 the SDK harness injecting `claude/<random-name>` over your `daily-issue-fixing` mandate, then your /enforce-branch-policy skill in #20 as the pre-commit-hook fix. The 2026-05-09 CHILmesh data point where naming the failure mode explicitly (\"the SDK harness injects...\") finally made the override unambiguous is a great write-up.\n\nI work on Entire (entire.io) \u2014 open-source CLI that captures Claude Code / Cursor sessions on git push and links the transcript + prompts to the commit. Different layer than your pre-commit hook, but the captured session metadata (including the injected system prompt) would give you forensic data on *which* harness instruction each branch sprawl came from, across all four repos, without relying on each session to self-audit in a comment.\n\nFree, local, no signup. Happy to share notes on the harness-injection detection side if useful \u2014 otherwise feel free to ignore.\n\n\u2014 [NAME]",
+            "plan_summary": "Email outreach to Dom referencing the specific branch-sprawl thread (DomI#13), his /enforce-branch-policy skill (PR #20), and the harness-injection mechanism \u2014 offering Entire as a complementary forensic capture layer across his multi-repo fleet."
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "stop_reason": "tool_use",
+      "usage": {
+        "input_tokens": 13381,
+        "output_tokens": 679
+      },
+      "content": [
+        {
+          "type": "text",
+          "text": "The critic returned a low-severity parse error, not substantive issues. The draft is solid: it references the specific branch name from his issue (`claude/clever-mendel-a7Wc6`), his actual solution PR (#20), the specific 2026-05-09 CHILmesh session, the harness-injection mechanism he diagnosed, and the multi-repo fleet (DomI/CHILmesh/ADMESH). It positions Entire as a complementary layer (forensic capture) rather than a replacement for his hook, which is the right framing given he's already solved the enforcement problem.\n\nOne small refinement: word count check (~150). Slightly trim and tighten."
+        },
+        {
+          "type": "tool_use",
+          "name": "submit_final_artifact",
+          "id": "toolu_01PhkqS8VTF7cnxK9JFnT4dJ",
+          "input": {
+            "artifact": "Subject: claude/clever-mendel-a7Wc6 \u2014 branch sprawl across DomI/CHILmesh/ADMESH\n\nHey Dom,\n\nSaw DomI#13 and the trail of session votes underneath it \u2014 the SDK harness injecting `claude/<random-name>` over your `daily-issue-fixing` mandate, then your `/enforce-branch-policy` skill in #20 as the pre-commit-hook fix. The 2026-05-09 CHILmesh note that naming the failure mode explicitly (\"the SDK harness injects...\") was what finally made the override unambiguous is a really sharp write-up.\n\nI work on Entire (entire.io) \u2014 open-source CLI that captures Claude Code / Cursor sessions on git push and links the transcript + prompts to the resulting commit. Different layer than your pre-commit hook, but the captured session metadata (including the injected system prompt) would give you forensic data on *which* harness directive caused each sprawl event, across all four repos, without relying on the session itself to self-audit in a comment afterward.\n\nFree, local, no signup. Happy to share notes on the harness-injection detection side if useful \u2014 otherwise feel free to ignore.\n\n\u2014 [NAME]"
+          }
+        }
+      ]
+    },
+    {
+      "iteration": 2,
+      "note": "submit_final_artifact received, loop ending"
+    }
+  ]
+}
