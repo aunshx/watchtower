@@ -1,0 +1,653 @@
+We're upgrading Checkpoint Scout's generator to a real ReAct-style multi-step reasoning loop using Anthropic's tool-use API. Currently /src/generate.py does single-shot generation per artifact. We're replacing it with an agentic generator that decides what context to fetch, plans, drafts, critiques, and refines.
+
+Time budget: 3 hours HARD cap. If you hit issues, stop and document the state. Don't push past the cap.
+
+================================
+ARCHITECTURE: REAL REACT WITH TOOLS
+================================
+
+The new generator uses Anthropic's tool-use API. For each pain moment × each artifact type (15 total artifact generations), the LLM runs an agentic loop where it can call tools to gather context, then plans, drafts, critiques, and refines.
+
+The agent has access to these tools:
+
+TOOL 1: fetch_maintainer_recent_comments
+- Parameters: username (string), limit (int, default 5)
+- Action: uses PyGithub to fetch the user's most recent public issue/PR comments across GitHub
+- Returns: list of {repo, url, body, created_at} dicts
+- Use case: learn the maintainer's voice and current preoccupations
+
+TOOL 2: fetch_full_thread
+- Parameters: url (string, a GitHub PR or issue URL)
+- Action: fetches the entire conversation on that PR/issue
+- Returns: list of {author, body, created_at, is_maintainer} dicts in chronological order
+- Use case: understand the full context, not just the triggering comment
+
+TOOL 3: fetch_repo_context
+- Parameters: repo (string, "owner/name")
+- Action: fetches README first 1500 chars, CONTRIBUTING.md if it exists, and any CLAUDE.md/AI_POLICY.md if present
+- Returns: {readme_excerpt, contributing, ai_policy}
+- Use case: understand the project's tone and any explicit AI policies
+
+TOOL 4: critique_self (special "thinking" tool)
+- Parameters: draft (string), plan_summary (string)
+- Action: this tool invokes a SEPARATE Claude call with a critic prompt, returns structured critique
+- Returns: {issues: list, severity, should_refine}
+- Use case: explicit self-evaluation step
+
+================================
+THE AGENT LOOP
+================================
+
+For each (pain_moment, artifact_type) pair:
+
+1. Initialize the agent with a system prompt that explains:
+   - The goal: produce a high-quality {artifact_type} for this specific pain moment
+   - The tools available and what they're for
+   - The expected structure: explore context → plan → draft → critique → refine if needed → output final
+   - Hard limit: maximum 10 tool calls total per artifact
+   - Stopping criterion: when the model outputs a tool_use_id of "final_artifact", the loop ends and that draft is saved
+
+2. Provide as initial user message:
+   - The pain moment data (repo, signal, classification, url, author)
+   - The artifact type with relevant per-type prompt guidance (use existing prompts/generate_{type}.md as base)
+   - Instruction: "Use the tools to gather context, then plan, draft, critique, and refine. Stop when you have a final artifact ready."
+
+3. Run the loop:
+   - Send messages to Claude with tools defined
+   - When Claude returns a tool_use block, execute the tool, return the result, continue
+   - When Claude returns "I am done, here is the final artifact:" with the markdown content, capture it
+   - Maximum 10 tool calls (count includes critique_self calls)
+   - Maximum 20 iterations of the loop (hard ceiling to prevent infinite loops)
+
+4. Save:
+   - outputs/runs_v2/{timestamp}/pain_moment_{id}/{artifact_type}.md (final draft)
+   - outputs/runs_v2/{timestamp}/pain_moment_{id}/{artifact_type}_trace.json (full agentic trace: every tool call, every response, token usage)
+   - The trace file is the "show your work" artifact for the writeup
+
+================================
+IMPLEMENTATION FILES
+================================
+
+Create these new files:
+
+/src/agent_generator.py
+- Main loop implementation
+- Tool execution functions (uses PyGithub for the 3 fetch tools)
+- Critique sub-agent (uses prompts/critique_v2.md)
+- Caching: cache tool results to data/tool_cache/ so re-runs are free
+
+/src/tools.py
+- The 4 tool definitions in Anthropic tool-use format (JSONschema)
+- Tool execution dispatcher
+
+/prompts/agent_system_v2.md
+- System prompt for the main agent
+
+/prompts/critique_v2.md  
+- Prompt for the critique sub-agent
+- Demand SPECIFIC critique: cite specific phrases, suggest specific replacements
+- Output must be valid JSON
+
+/scripts/run_agent_generator.py
+- Top-level script that loads qualified.json, runs agent_generator.py per (pain_moment, artifact_type), saves outputs
+
+/scripts/compare_artifacts.py
+- Loads v1 artifacts from outputs/runs/{latest}/ and v2 artifacts from outputs/runs_v2/{latest}/
+- Produces a side-by-side comparison markdown at outputs/comparison_{timestamp}.md
+- For each artifact: shows v1, shows v2, lists what changed structurally
+
+================================
+TOOL DESIGN DETAILS
+================================
+
+For fetch_maintainer_recent_comments, use the GitHub search API endpoint /search/issues with the query `commenter:{username}` sorted by updated descending. Truncate each comment body to 500 chars to keep token usage manageable.
+
+For fetch_full_thread, parse the URL to extract owner/repo and issue/PR number, then use repo.get_issue(n) or repo.get_pull(n) and iterate comments. Cap at 30 comments to avoid huge threads.
+
+For fetch_repo_context, fetch each file as text, return None for files that don't exist. Truncate each to 1500 chars.
+
+For critique_self, call Claude with a separate prompt asking for structured JSON critique. The critic call should NOT have tools — it's pure analysis.
+
+================================
+COST GUARDRAIL
+================================
+
+Estimate before running: 15 artifacts × ~5 tool calls average × ~2000 tokens per call = ~150K tokens. At Opus pricing, that's roughly $2-3.
+
+If your initial test run on 1 artifact shows the agent making 15+ tool calls or burning through tokens, ABORT and tell me — we'll adjust the system prompt to be more conservative.
+
+================================
+TEST FIRST
+================================
+
+Before running on all 15 artifacts, test the loop on a SINGLE pain moment + artifact type. Specifically: the HuggingFace pain moment (id should be in qualified.json), public_comment artifact.
+
+Run the agent. Show me:
+1. The full trace from the trace.json file (every tool call, every response)
+2. The final artifact
+3. The token usage
+
+I'll review and either approve full run on all 15 or ask for adjustments.
+
+DO NOT run on all 15 until I approve the test run.
+
+================================
+WHEN BLOCKED
+================================
+
+If anything is unclear, broken, or running over budget:
+1. Stop
+2. Tell me what you tried and what failed
+3. Wait for direction
+
+Do not silently revert or "fix it yourself" by simplifying scope. We need to know what works and what doesn't.
+
+================================
+START NOW
+================================
+
+Build the files. Run the test. Show me the trace.
+
+---
+
+<task-notification>
+<task-id>b0lj074tg</task-id>
+<summary>Monitor event: "agent generator test run"</summary>
+<event>tool_call 1/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b0lj074tg</task-id>
+<summary>Monitor event: "agent generator test run"</summary>
+<event>tool_call 2/10: fetch_repo_context</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b0lj074tg</task-id>
+<summary>Monitor event: "agent generator test run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bx1oqo25h</task-id>
+<tool-use-id>toolu_01RRUqjdVTjDMsHdGauC3j8E</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-aunsh-Dev-checkpoint-scout/bcc98d22-df73-4393-be74-3f951c8a769e/tasks/bx1oqo25h.output</output-file>
+<status>completed</status>
+<summary>Background command "python scripts/run_agent_generator.py 2&gt;&amp;1" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b0lj074tg</task-id>
+<summary>Monitor event: "agent generator test run"</summary>
+<event>[Monitor timed out — re-arm if needed.]</event>
+</task-notification>
+
+---
+
+fix the critique_self parse error then run all 15
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>huggingface/transformers → public_comment
+→ public_comment | moment e43473ed
+tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+huggingface/transformers → outreach
+→ outreach | moment e43473ed</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_repo_context</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+huggingface/transformers → case_study
+→ case_study | moment e43473ed</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread
+tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+anthropics/claude-code → public_comment
+→ public_comment | moment 8cf3e16b</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+anthropics/claude-code → outreach
+→ outreach | moment 8cf3e16b</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread
+tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+anthropics/claude-code → case_study
+→ case_study | moment 8cf3e16b</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+huggingface/transformers → public_comment
+→ public_comment | moment 39be3d99</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_repo_context</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+huggingface/transformers → outreach
+→ outreach | moment 39be3d99</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread
+tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+huggingface/transformers → case_study
+→ case_study | moment 39be3d99</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+domattioli/DomI → public_comment
+→ public_comment | moment 5a9ca8c6</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+domattioli/DomI → outreach
+→ outreach | moment 5a9ca8c6</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread
+tool_call 2/10: fetch_maintainer_recent_comments</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+domattioli/DomI → case_study
+→ case_study | moment 5a9ca8c6</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+ggerganov/llama.cpp → public_comment
+→ public_comment | moment e0e46557</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 2/10: fetch_repo_context</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+ggerganov/llama.cpp → outreach
+→ outreach | moment e0e46557</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_repo_context
+tool_call 2/10: fetch_full_thread</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>✓ submit_final_artifact called
+ggerganov/llama.cpp → case_study
+→ case_study | moment e0e46557</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 1/10: fetch_full_thread
+tool_call 2/10: fetch_repo_context</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>tool_call 3/10: critique_self</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bltzyenxg</task-id>
+<tool-use-id>REDACTED</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-aunsh-Dev-checkpoint-scout/bcc98d22-df73-4393-be74-3f951c8a769e/tasks/bltzyenxg.output</output-file>
+<status>completed</status>
+<summary>Background command "python scripts/run_agent_generator.py --all 2&gt;&amp;1" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bzrv4hxcb</task-id>
+<summary>Monitor event: "full 15-artifact agent run"</summary>
+<event>[Monitor timed out — re-arm if needed.]</event>
+</task-notification>
+
+---
+
+Run the comparison script to produce the v1 vs v2 side-by-side at outputs/comparison_{timestamp}.md
