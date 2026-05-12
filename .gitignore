@@ -7,3 +7,6 @@ venv/
 data/raw/
 data/cache/
 outputs/runs/
+node_modules/
+package.json
+package-lock.json
