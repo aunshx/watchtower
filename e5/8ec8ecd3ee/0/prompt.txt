@@ -281,3 +281,11 @@ commit and push
 ---
 
 commit and push new changes
+
+---
+
+commit and push new changes
+
+---
+
+I have many changes staged take a look and commit
