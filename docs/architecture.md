@@ -1,10 +1,10 @@
-# Checkpoint Scout — Architecture & Build Spec
+# Watchtower — Architecture & Build Spec
 
 > This document is the source of truth for what we're building. Hand it to Claude Code in the first session to ground the work.
 
 ## Mission
 
-Build a GTM agent for Entire (entire.io) that scans public GitHub for moments where open-source maintainers are visibly struggling with AI-generated code, and drafts three artifacts per pain moment that Entire's GTM team could ship the next day.
+Build a GTM agent for Entire (entire.io) — Watchtower — that scans public GitHub for moments where open-source maintainers are visibly struggling with AI-generated code, and drafts three artifacts per pain moment that Entire's GTM team could ship the next day.
 
 ## The thesis the agent embodies
 

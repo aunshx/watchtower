@@ -1,15 +1,15 @@
 <p align="center">
-  <img src="https://i.postimg.cc/SN4krnWH/logo.png" alt="Checkpoint Scout logo" width="120" />
+  <img src="https://i.postimg.cc/SN4krnWH/logo.png" alt="Watchtower logo" width="120" />
 </p>
 
-<h1 align="center">Checkpoint Scout</h1>
+<h1 align="center">Watchtower</h1>
 
 <p align="center">
   A go-to-market agent for <a href="https://entire.io">Entire</a>. Scans public GitHub for moments where open-source maintainers struggle with AI-generated code, drafts useful artifacts for review.
 </p>
 
 <p align="center">
-  <a href="https://aunshx.github.io/checkpoint-scout/"><b>Live dashboard</b></a> ·
+  <a href="https://aunshx.github.io/watchtower/"><b>Live dashboard</b></a> ·
   <a href="docs/writeup.md"><b>Writeup</b></a>
 </p>
 
@@ -47,14 +47,14 @@ In a single 30-minute run on May 11, 2026:
 
 The headline result: HuggingFace's `transformers` repo published a "Code Agent Policy" citing being overwhelmed by agent-written PRs. That's a major OSS project publicly documenting the exact pain Entire's product solves.
 
-See the [live dashboard](https://aunshx.github.io/checkpoint-scout/) for all five.
+See the [live dashboard](https://aunshx.github.io/watchtower/) for all five.
 
 ## Run it yourself
 
 ```bash
 # Clone
-git clone https://github.com/aunshx/checkpoint-scout.git
-cd checkpoint-scout
+git clone https://github.com/aunshx/watchtower.git
+cd watchtower
 
 # Set up Python environment
 python3 -m venv .venv
@@ -85,7 +85,7 @@ npm run dev
 ## Repo structure
 
 ```
-checkpoint-scout/
+watchtower/
 ├── src/                    # The agent (Python)
 │   ├── acquire.py          # Stage 1: GitHub scraping
 │   ├── classify.py         # Stage 2: pain-moment scoring

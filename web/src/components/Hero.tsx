@@ -9,7 +9,7 @@ export function Hero({ data }: Props) {
   return (
     <section className="py-16 text-center px-4">
       <h1 className="text-5xl font-bold tracking-tight text-stone-900">
-        Checkpoint Scout
+        Watchtower
       </h1>
       <p className="mt-2 text-xl text-blue-600">
         AI-coding pain moments in public OSS, surfaced for Entire's GTM team

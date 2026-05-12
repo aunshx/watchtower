@@ -1,4 +1,4 @@
-"""Configuration and shared constants for the Checkpoint Scout agent."""
+"""Configuration and shared constants for the Watchtower agent."""
 
 import os
 from pathlib import Path

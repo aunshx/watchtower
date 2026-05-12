@@ -41,12 +41,12 @@ def build_dashboard(qualified: list, run_dir: Path, run_ts: str) -> str:
         ts_display = run_ts
 
     lines = [
-        "# Checkpoint Scout — Run Summary",
+        "# Watchtower — Run Summary",
         "",
         f"**Run:** {ts_display}",
         "",
         (
-            "Checkpoint Scout scanned 15 high-signal OSS repos (next.js, react, llama.cpp, "
+            "Watchtower scanned 15 high-signal OSS repos (next.js, react, llama.cpp, "
             "transformers, and others) plus 6 AI-coding pain-phrase queries against the "
             "GitHub Issue Search API, collecting **2,774 unique candidates**. "
             "These were filtered and keyword-ranked to a **100-candidate batch** for "

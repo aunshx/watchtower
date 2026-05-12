@@ -11,8 +11,8 @@ This file is your script for the day. You'll run Claude Code on your machine, wi
 ## Session 0: Setup (5 minutes, no Claude Code needed)
 
 ```bash
-mkdir checkpoint-scout
-cd checkpoint-scout
+mkdir watchtower
+cd watchtower
 git init
 cp /path/to/scaffold/* .
 entire enable
@@ -34,7 +34,7 @@ Open Claude Code in the project directory. Start a new session.
 
 **Prompt to give Claude Code:**
 
-> I'm building a GTM agent for Entire (entire.io) called Checkpoint Scout. Read `docs/architecture.md` for the full design. We're starting with Stage 1: Acquire.
+> I'm building a GTM agent for Entire (entire.io) called Watchtower. Read `docs/architecture.md` for the full design. We're starting with Stage 1: Acquire.
 >
 > Build `src/acquire.py` that:
 > 1. Reads target repos and search queries from `src/config.py`
@@ -61,7 +61,7 @@ New Claude Code session.
 
 **Prompt:**
 
-> Continuing Checkpoint Scout. Stage 1 (acquire) is done — you'll find raw candidates in `data/raw/`. Now build `src/classify.py`.
+> Continuing Watchtower. Stage 1 (acquire) is done — you'll find raw candidates in `data/raw/`. Now build `src/classify.py`.
 >
 > Build `src/classify.py` that:
 > 1. Loads the most recent `candidates.json` from `data/raw/`
@@ -88,7 +88,7 @@ New Claude Code session. This is the most important stage — the artifacts prod
 
 **Prompt:**
 
-> Continuing Checkpoint Scout. Stages 1 and 2 are done. Now build `src/generate.py` — the final stage.
+> Continuing Watchtower. Stages 1 and 2 are done. Now build `src/generate.py` — the final stage.
 >
 > For each qualified pain moment (from `data/classified/{timestamp}/qualified.json`), generate three artifacts in parallel:
 > 1. A public PR comment draft (using `prompts/generate_comment.md`)

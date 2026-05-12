@@ -12,7 +12,7 @@ export default function App() {
   const [selectedMoment, setSelectedMoment] = useState<PainMoment | null>(null);
 
   useEffect(() => {
-    fetch('/checkpoint-scout/data.json')
+    fetch('/watchtower/data.json')
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
         return r.json();
@@ -55,7 +55,7 @@ export default function App() {
         <section className="mt-18 pb-16">
           <h2 className="text-3xl font-bold text-stone-900 mb-2">Top Pain Moments</h2>
           <p className="text-base text-stone-600 mb-12">
-            The 5 highest-scoring AI-coding pain moments surfaced by Checkpoint Scout this run.
+            The 5 highest-scoring AI-coding pain moments surfaced by Watchtower this run.
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
             {data.pain_moments.map((m) => (
