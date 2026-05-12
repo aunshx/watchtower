@@ -5,82 +5,83 @@
 <h1 align="center">Watchtower</h1>
 
 <p align="center">
-  A go-to-market agent for <a href="https://entire.io">Entire</a>. Scans public GitHub for moments where open-source maintainers struggle with AI-generated code, drafts useful artifacts for review.
+  A GTM agent for <a href="https://entire.io">Entire</a>. Watchtower finds public AI-coding pain moments in OSS and drafts useful artifacts at the moment a developer or maintainer is articulating the problem.
 </p>
 
 <p align="center">
-  <a href="https://aunshx.github.io/watchtower/"><b>Live dashboard</b></a> ·
-  <a href="docs/writeup.md"><b>Writeup</b></a>
+  <a href="https://aunshx.github.io/watchtower"><b>Live dashboard</b></a> ·
+  <a href="https://www.notion.so/Watchtower-Agentic-GTM-for-Entire-io-35e1660b323b801ca273f53a29c870b2"><b>Writeup</b></a> ·
+  <a href="https://www.notion.so/Prioritization-Framework-35e1660b323b80d08739c69f43231150"><b>Prioritization framework</b></a>
 </p>
 
 ---
 
 ## What it does
 
-A three-stage pipeline that scans 15 high-traffic open-source repos plus six pain-phrase searches on GitHub. It surfaces moments where maintainers are publicly struggling with AI-generated code, scores them with a structured classifier, and drafts three artifacts per qualified pain moment that Entire's GTM team could ship:
+Three Python stages plus an agentic generator at the end.
 
-1. A public PR/issue comment
-2. A personalized outreach message
-3. A case study skeleton
+Acquire pulls candidates from GitHub across 15 high-traffic OSS repos and six pain-phrase searches. Classify scores 100 prioritized candidates through Claude Opus on a structured rubric. Generate produces three artifacts per qualified pain moment using a ReAct loop with four tools: a public PR comment, a personalized outreach DM, and a case study skeleton.
 
-Drafts only. Nothing posted to GitHub or sent. Human-in-the-loop by design.
+Drafts only. Nothing posted to GitHub or sent. A human at Entire reviews everything before it ships.
 
-## The pipeline
+## The agent
 
-```
-Acquire   →  2,774 raw candidates from 15 OSS repos + 6 pain queries
-Classify  →  100 prioritized, scored by Claude Opus 4.7
-Generate  →  5 qualified pain moments × 3 artifacts each = 15 artifacts
-Dashboard →  Read-only review UI for Entire's GTM team
-```
+The generator runs as a real ReAct loop using the Anthropic tool-use API. Four tools available to the agent:
+
+- fetch_full_thread(url): full PR or issue conversation
+- fetch_repo_context(repo): README, CONTRIBUTING.md, AI policy files
+- fetch_maintainer_recent_comments(username): maintainer's recent public writing
+- critique_self(draft, plan): separate Claude call as critic
+
+Bounded at 10 tool calls per artifact and one refine cycle. Every step saved as a JSON trace.
 
 ## Results
 
-In a single 30-minute run on May 11, 2026:
+One 30-minute:
 
 | Stage | Output |
-|-------|--------|
+|---|---|
 | Raw candidates | 2,774 |
 | Classified | 100 |
-| Qualified pain moments (score ≥ 6) | 5 |
+| Qualified (score >= 6) | 5 |
 | Artifacts generated | 15 |
+| Total v2 cost | $2.29 |
+| Fallbacks / errors | 0 / 0 |
 
-The headline result: HuggingFace's `transformers` repo published a "Code Agent Policy" citing being overwhelmed by agent-written PRs. That's a major OSS project publicly documenting the exact pain Entire's product solves.
+The headline result is the rmurdough Claude Code intent-drift incident, where Entire's product addresses the exact failure mode (session context collapse, violated memory rules, mode confusion across turns).
 
-See the [live dashboard](https://aunshx.github.io/watchtower/) for all five.
+See the live dashboard for all five qualified moments and their artifacts: https://aunshx.github.io/watchtower/
 
 ## Run it yourself
 
-```bash
-# Clone
+Clone the repo:
+
 git clone https://github.com/aunshx/watchtower.git
 cd watchtower
 
-# Set up Python environment
+Set up the Python environment:
+
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
 
-# Add credentials to .env
+Add credentials:
+
 cp .env.example .env
 # Fill in GITHUB_TOKEN (public_repo scope) and ANTHROPIC_API_KEY
 
-# Run the pipeline
-python src/acquire.py    # ~5 min, GitHub scraping
-python src/classify.py   # ~3 min, Claude scoring
-python src/generate.py   # ~3 min, artifact generation
+Run the pipeline:
 
-# Optional: rebuild the dashboard data
+python src/acquire.py
+python src/classify.py
+python scripts/run_agent_generator.py --all
 python scripts/build_dashboard_data.py
-```
 
 To run the dashboard locally:
 
-```bash
 cd web
 npm install
 npm run dev
-```
 
 ## Repo structure
 
@@ -108,4 +109,4 @@ A GitHub Actions cron (`.github/workflows/daily-scout.yml`) is configured to run
 
 ## Built for the Basis Set AI Fellowship
 
-Built in one day, May 11, 2026. The agent was built using Claude Code on a Mac, with [Entire CLI](https://entire.io) installed to capture build sessions. See [docs/writeup.md](docs/writeup.md) for the full thinking on the wedge, the design choices, and what's next.
+Built in one day, May 11, 2026. The agent was built using Claude Code on a Mac, with [Entire CLI](https://entire.io) installed to capture build sessions. See [docs/build_up.md](docs/build_up.md) for the full thinking on the wedge, the design choices, and what's next.
